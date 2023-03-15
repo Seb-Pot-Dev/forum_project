@@ -3,7 +3,8 @@
     
     use App\Manager;
     use App\DAO;
-    use Model\Managers\TopicManager;
+    // use Model\Managers\TopicManager;
+    use Controller\ForumController;
 
     class TopicManager extends Manager{
 
@@ -17,3 +18,4 @@
 
 
     }
+    ?>

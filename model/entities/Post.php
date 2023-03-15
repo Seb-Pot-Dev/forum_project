@@ -43,6 +43,13 @@ final class Post extends Entity
     {
             return $this->postDate;
     }
+    /**
+     * Get the value of text
+     */ 
+    public function getText()
+    {
+        return $this->text;
+    }
 
     /**
      * Set the value of title
@@ -75,5 +82,6 @@ final class Post extends Entity
 
             return $this;
     }
+
 }
 ?>
