@@ -1,4 +1,5 @@
 <?php
+
     namespace Model\Entities;
 
     use App\Entity;
@@ -25,8 +26,6 @@
 
         /**
          * Set the value of id
-         *
-         * @return  self
          */ 
         public function setId($id)
         {
@@ -45,8 +44,6 @@
 
         /**
          * Set the value of title
-         *
-         * @return  self
          */ 
         public function setTitle($title)
         {
@@ -65,8 +62,6 @@
 
         /**
          * Set the value of user
-         *
-         * @return  self
          */ 
         public function setUser($user)
         {
@@ -95,8 +90,6 @@
 
         /**
          * Set the value of closed
-         *
-         * @return  self
          */ 
         public function setClosed($closed)
         {
@@ -105,3 +98,4 @@
                 return $this;
         }
     }
+?>
