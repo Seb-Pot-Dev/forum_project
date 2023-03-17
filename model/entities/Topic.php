@@ -7,10 +7,11 @@
     final class Topic extends Entity{
 
         private $id;
-        private $title;
+        private $topicName;
+        private $topicDate;
+        private $locked;
         private $user;
-        private $creationdate;
-        private $closed;
+        private $category;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -35,24 +36,6 @@
         }
 
         /**
-         * Get the value of title
-         */ 
-        public function getTitle()
-        {
-                return $this->title;
-        }
-
-        /**
-         * Set the value of title
-         */ 
-        public function setTitle($title)
-        {
-                $this->title = $title;
-
-                return $this;
-        }
-
-        /**
          * Get the value of user
          */ 
         public function getUser()
@@ -70,32 +53,67 @@
                 return $this;
         }
 
-        public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+        public function getTopicDate(){
+            $formattedDate = $this->topicDate->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
-        public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
+        public function setTopicDate($date){
+            $this->topicDate = new \DateTime($date);
             return $this;
         }
 
         /**
-         * Get the value of closed
+         * Get the value of Locked
          */ 
-        public function getClosed()
+        public function getLocked()
         {
-                return $this->closed;
+                return $this->locked;
         }
 
         /**
-         * Set the value of closed
+         * Set the value of Locked
          */ 
-        public function setClosed($closed)
+        public function setLocked($locked)
         {
-                $this->closed = $closed;
+                $this->locked = $locked;
 
                 return $this;
         }
+        /**
+         * Get the value of TopicName
+         */ 
+        public function getTopicName()
+        {
+                return $this->topicName;
+        }
+
+        /**
+         * Set the value of TopicName
+         */ 
+        public function setTopicName($topicName)
+        {
+                $this->topicName = $topicName;
+
+                return $this;
+        }
+        /**
+         * Get the value of category
+         */ 
+        public function getCategory()
+        {
+                return $this->category;
+        }
+
+        /**
+         * Set the value of category
+         */ 
+        public function setCategory($category)
+        {
+                $this->category = $category;
+
+                return $this;
+        }
+
     }
 ?>

@@ -3,8 +3,11 @@
 
     abstract class AbstractController{
 
+        // fonction index de base
         public function index(){}
         
+        // fonction redirectTo = fonction native sur les framework mais ici on la crée.
+        // permet de rédiriger
         public function redirectTo($ctrl = null, $action = null, $id = null){
 
             if($ctrl != "home"){

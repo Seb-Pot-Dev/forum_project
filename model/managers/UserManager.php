@@ -6,7 +6,7 @@
     // use Model\Managers\TopicManager;
     use Controller\ForumController;
 
-    class TopicManager extends Manager{
+    class UserManager extends Manager{
 
         protected $className = "Model\Entities\User";
         protected $tableName = "user";

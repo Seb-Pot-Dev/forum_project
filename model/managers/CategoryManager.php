@@ -1,12 +1,17 @@
 <?php
+/* 
+Il y a 1 manager par "entities", ce n'est pas comme le controller qui regroupe des actions.
+Les managers sont aussi des classes.
+C'est la que je vais mettre mes requêtes SQL au serveur,
+qui seront appelés par la suite par le CONTROLLER.
+*/
     namespace Model\Managers;
     
     use App\Manager;
     use App\DAO;
-    // use Model\Managers\TopicManager;
     use Controller\ForumController;
 
-    class TopicManager extends Manager{
+    class CategoryManager extends Manager{
 
         protected $className = "Model\Entities\Category";
         protected $tableName = "category";

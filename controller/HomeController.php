@@ -13,12 +13,12 @@
 
         public function index(){
             
-           
+           // renvoie vers une page home.php
                 return [
                     "view" => VIEW_DIR."home.php"
                 ];
             }
-            
+        
         
    
         public function users(){

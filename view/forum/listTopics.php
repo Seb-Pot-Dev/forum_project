@@ -1,8 +1,13 @@
 <?php
+// Au départ, on passe par l'index, qui va nous aiguiller vers une des methodes du controller
+// Puis si on envoie une requette a la BDD, on passera par la couche "Manager" qui
+// va renvoyer une réponse au "Controller" 
+// et le controller va renvoyer une "View"
+
+// dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
 
 $topics = $result["data"]['topics'];
-var_dump($result);
-die; 
+
 ?>
 
 <h1>liste topics</h1>
@@ -11,7 +16,7 @@ die;
 foreach($topics as $topic ){
 
     ?>
-    <p><?=$topic->getTitle()?></p>
+    <p><?=$topic->getTopicName()?></p>
     <?php
 }?>
 

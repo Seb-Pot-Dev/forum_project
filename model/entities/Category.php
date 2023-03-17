@@ -1,5 +1,5 @@
 <?php
-
+// Les entities correspondent nos tables en base de donnée.
 namespace Model\Entities;
 
 use App\Entity;

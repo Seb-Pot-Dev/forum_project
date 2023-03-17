@@ -2,7 +2,7 @@
 	namespace App;
 	
 	class Autoloader{
-
+		// pour charger les classes automatiquement
 		public static function register(){
 			spl_autoload_register(array(__CLASS__, 'autoload'));
 		}

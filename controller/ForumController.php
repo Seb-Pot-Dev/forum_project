@@ -1,5 +1,5 @@
 <?php
-
+// Le dossier "controller" contient les dossiers qui vont être appelés par l'utilisateur dans notre URL.
     namespace Controller;
 
     use App\Session;
