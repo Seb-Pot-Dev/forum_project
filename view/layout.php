@@ -40,7 +40,7 @@
                         }
                         else{
                             ?>
-                            <a href="index.php?ctrl=forum&action=listCategories">la liste des categories</a>
+                            <a href="index.php?ctrl=category&action=listCategories">Liste des categories</a>
                             <a href="./view/security/login.php">Connexion</a>
                             <a href="/security/register.html">Inscription</a>
                         <?php

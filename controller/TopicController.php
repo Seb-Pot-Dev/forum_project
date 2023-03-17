@@ -8,11 +8,10 @@ use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
 
-class CategoryController extends AbstractController implements ControllerInterface{
+class TopicController extends AbstractController implements ControllerInterface{
 
     public function index(){
       
-
        $categoryManager = new CategoryManager();
 
         return [
@@ -23,8 +22,21 @@ class CategoryController extends AbstractController implements ControllerInterfa
         ];
     
     }
+    public function findTopicsByCategory($id){
 
+        $topicManager = new TopicManager();
+
+        return [
+            "view" => VIEW_DIR."forum/listTopics.php",
+            "data" => [
+                "topics" => $topicManager->listTopicsByCategory($id)
+            ]
+        ];
+
+        
+
+    }
     
 
+
 }
-?>
