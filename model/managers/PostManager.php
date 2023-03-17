@@ -16,6 +16,19 @@
             parent::connect();
         }
 
+        public function listPostByTopic($id){
 
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName." a
+                        WHERE a.topic_id = :id
+                        ";
+    
+                return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+        }
     }
     ?>

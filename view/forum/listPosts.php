@@ -6,20 +6,23 @@
 
 // dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
 
-$topics = $result["data"]['topics'];
+$posts = $result["data"]['posts'];
 
 ?>
 
-<h1>liste topics</h1>
+<h1>liste posts</h1>
 
 <?php
-if($topics){
-foreach($topics as $topic){
+if($posts){
+foreach($posts as $post){
 
     ?>
-    <a href="index.php?ctrl=topic&action=findPostByTopic&id=<?=$topic->getId()?>"><?=$topic->getTopicName()?></a>
-    <!-- problème : redirection directe -->
+    <p><?=$post->getPostDate()?></p>
+    <p><?=$post->getUser()->getNickName()?></p>
+    <p><?=$post->getText()?></p>
+    
     <?php
+    // La clé etrangère est considéré comme une classe grâce au framework 
 }
 };
 ?>

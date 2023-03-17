@@ -39,9 +39,15 @@ final class Post extends Entity
     /**
      * Get the value of title
      */ 
-    public function getPostDate($postDate)
+    public function getPostDate()
     {
             return $this->postDate;
+    }
+    public function setPostDate($postDate)
+    {
+            $this->postDate = $postDate;
+
+            return $this;
     }
     /**
      * Get the value of text
