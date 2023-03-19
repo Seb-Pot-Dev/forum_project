@@ -10,7 +10,8 @@ $posts = $result["data"]['posts'];
 
 ?>
 
-<h1>liste posts</h1>
+<h1><?=$posts->findTopicName()?></h1>
+<!-- VOIR PROBLEMES ICI -->
 
 <?php
 if($posts){

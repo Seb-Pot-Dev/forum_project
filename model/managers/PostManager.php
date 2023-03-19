@@ -30,5 +30,19 @@
                     $this->className
                 );
         }
+        //problèmes ici
+        public function topicNameByPost($topic){
+            parent::connect();
+            $sql = "SELECT topicName
+                    FROM topic t
+                    INNER JOIN post p ON t.id_topic = p.topic_id
+                    WHERE p.topic_id = :topic
+                    ";
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['topic' => $topic], false), 
+                $this->className
+            );
+            
+        }
     }
     ?>

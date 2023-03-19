@@ -34,7 +34,17 @@ class PostController extends AbstractController implements ControllerInterface{
             ]
         ];
     }
+//problemes ici 
+    public function findTopicName($topic){
 
+        $postManager = new PostManager();
+        return [
+            "view" => VIEW_DIR."forum/listPosts.php",
+            "data" => [
+                "posts" => $postManager->topicNameByPost($topic)
+            ]
+        ];
+    }
     
 
 }

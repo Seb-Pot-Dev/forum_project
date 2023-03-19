@@ -3,7 +3,6 @@
     
     use App\Manager;
     use App\DAO;
-    // use Model\Managers\TopicManager;
     use Controller\ForumController;
 
     class TopicManager extends Manager{
@@ -27,9 +26,6 @@
                     DAO::select($sql, ['id' => $id], true), 
                     $this->className
                 );
-            
-            //ici request sql select from $tablename
-            // voir manager getMultipleResult (findAll)
         }
 
     }
