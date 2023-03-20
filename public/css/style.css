@@ -4,9 +4,47 @@
     box-sizing: border-box;
     list-style: none;
     text-decoration: none;
-    
+    font-family: 'Rakkas', cursive;
 }
-
+#forum{
+}
+:root{
+    --light-blue: #84B5CB;
+    --dark-blue: #2C3E50;
+    --sand: #CBB292;
+}
+/*----------NAV BAR-----------*/
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+#nav-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#nav-left a img{
+    width: 50px;
+    height: auto;
+    margin: 2%;
+}
+a.button-light{
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+a.button-dark{
+    background-color: var(--dark-blue);
+    color: var(--sand);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+/*----------TABLE-------------*/
 table{
     border: 1px solid black;
     background-color: lightblue;
