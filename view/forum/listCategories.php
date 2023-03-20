@@ -10,7 +10,7 @@ $categories = $result["data"]['categories'];
 
 ?>
 
-<h1>liste categories</h1>
+<h3>Liste des categories</h3>
 
 <?php
 if($categories){?>
