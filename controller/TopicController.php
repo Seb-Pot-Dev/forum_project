@@ -22,30 +22,30 @@ class TopicController extends AbstractController implements ControllerInterface{
         ];
     
     }
-    public function findTopicsByCategory($id){
+    public function listTopicsByCategory($id){
 
         $topicManager = new TopicManager();
 
         return [
             "view" => VIEW_DIR."forum/listTopics.php",
             "data" => [
-                "topics" => $topicManager->listTopicsByCategory($id)
+                "topics" => $topicManager->findTopicsByCategory($id)
             ]
         ];
 
         
 
     }
-    public function findPostByTopic($id){
+    public function listPostByTopic($id){
         $postManager = new Postmanager();
         $topicManager = new TopicManager();
-
+        $categoryManager = new CategoryManager();
         return [
             "view" => VIEW_DIR."forum/listPosts.php",
             "data" => [
-                "posts" => $postManager->listPostByTopic($id)
-                ,"topic" => $topicManager->topicName($id)
-                ]
+                "posts" => $postManager->findPostByTopic($id)
+                ,"topic" => $topicManager->findOneById($id)
+            ]
         ];
     }
 

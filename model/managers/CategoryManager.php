@@ -21,5 +21,19 @@ qui seront appelés par la suite par le CONTROLLER.
             parent::connect();
         }
 
+        public function findOneById($id)
+        {
+            parent::connect();
+
+            $sql = "SELECT *
+                    FROM ".$this->tableName." a
+                    WHERE a.id_".$this->tableName." = :id
+                    ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['id' => $id], false), 
+                $this->className
+            );
+        }
     }
     ?>

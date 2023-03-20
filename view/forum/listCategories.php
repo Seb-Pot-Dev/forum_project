@@ -13,14 +13,27 @@ $categories = $result["data"]['categories'];
 <h1>liste categories</h1>
 
 <?php
-if($categories){
-foreach($categories as $category){
+if($categories){?>
 
+<table>
+    <thead>
+        <tr>
+            <th>Nom des catégories</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <?php
+foreach($categories as $category){
     ?>
-    <a href="index.php?ctrl=topic&action=findTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a>
+    <tr>
+        <td><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
+    </tr>
     <?php
 }
 };
 ?>
+    </tbody>
+</table>
 
   

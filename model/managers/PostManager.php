@@ -16,7 +16,7 @@
             parent::connect();
         }
 
-        public function listPostByTopic($id){
+        public function findPostByTopic($id){
 
             parent::connect();
 

@@ -9,9 +9,8 @@
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
 ?>
-
-<h1><?=$topic->getTopicName()?></h1>
-<!-- VOIR PROBLEMES ICI -->
+<!-- "$topic->getCategory()" est un objet "Category" donc on peut lui appliquer une méthode de l'entité "Category" --->
+<h1><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$topic->getCategory()->getId()?>"><?=$topic->getCategory()->getCategoryName()?></a>/<?=$topic->getTopicName()?></h1>
 
 <?php
 if($posts){
@@ -24,6 +23,7 @@ if($posts){
     
     <?php
     // La clé etrangère est considéré comme une classe grâce au framework 
+    // Donc $topic est une classe, 
 }
 };
 ?>

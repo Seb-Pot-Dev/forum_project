@@ -17,7 +17,7 @@ if($topics){
 foreach($topics as $topic){
 
     ?>
-    <a href="index.php?ctrl=topic&action=findPostByTopic&id=<?=$topic->getId()?>"><?=$topic->getTopicName()?></a>
+    <a href="index.php?ctrl=topic&action=listPostByTopic&id=<?=$topic->getId()?>"><?=$topic->getTopicName()?></a>
     <!-- problème : redirection directe -->
     <?php
 }

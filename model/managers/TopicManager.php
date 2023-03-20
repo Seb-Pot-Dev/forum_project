@@ -14,7 +14,7 @@
         public function __construct(){
             parent::connect();
         }
-        public function listTopicsByCategory($id){
+        public function findTopicsByCategory($id){
             parent::connect();
 
                 $sql = "SELECT *
@@ -28,14 +28,13 @@
                 );
 
         }
-        //problèmes ici
-        public function topicName($id){
-            parent::connect();
+        public function findOneById($id){
 
-            $sql = "SELECT topicName
-                    FROM ".$this->tableName." t
-                    WHERE t.id_topic = :id
+            $sql = "SELECT *
+                    FROM ".$this->tableName." a
+                    WHERE a.id_".$this->tableName." = :id
                     ";
+
             return $this->getOneOrNullResult(
                 DAO::select($sql, ['id' => $id], false), 
                 $this->className
