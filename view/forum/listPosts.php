@@ -9,23 +9,27 @@
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
 ?>
-<!-- "$topic->getCategory()" est un objet "Category" donc on peut lui appliquer une méthode de l'entité "Category" --->
-<h1><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$topic->getCategory()->getId()?>"><?=$topic->getCategory()->getCategoryName()?></a>/<?=$topic->getTopicName()?></h1>
 
-<?php
-if($posts){
-    foreach($posts as $post){
-
-    ?>
-    <p><?=$post->getPostDate()?></p>
-    <p><?=$post->getUser()->getNickName()?></p>
-    <p><?=$post->getText()?></p>
-    
+<div class="forum-container">
+  <div class="forum-header">
+    <h2 class="forum-category"><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$topic->getCategory()->getId()?>"><?=$topic->getCategory()->getCategoryName()?></a></h2>
+    <h1 class="forum-title">/<?=$topic->getTopicName()?></h1>
+  </div>
+  <div class="forum-posts">
     <?php
-    // La clé etrangère est considéré comme une classe grâce au framework 
-    // Donc $topic est une classe, 
-}
-};
-?>
-
-  
+    if($posts){
+      foreach($posts as $post){
+    ?>
+        <div class="forum-post-card">
+            <div class="post-header">
+                <p class="post-user"><?=$post->getUser()->getNickName()?></p>
+                <p class="post-date"><?=$post->getPostDate()?></p>
+            </div>
+                <p class="post-text"><?=$post->getText()?></p>
+        </div>
+    <?php
+      }
+    };
+    ?>
+  </div>
+</div>

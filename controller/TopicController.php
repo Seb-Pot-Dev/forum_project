@@ -25,11 +25,13 @@ class TopicController extends AbstractController implements ControllerInterface{
     public function listTopicsByCategory($id){
 
         $topicManager = new TopicManager();
+        $categoryManager = new CategoryManager();
 
         return [
             "view" => VIEW_DIR."forum/listTopics.php",
             "data" => [
-                "topics" => $topicManager->findTopicsByCategory($id)
+                "topics" => $topicManager->findTopicsByCategory($id),
+                "categorie" => $categoryManager->findOneById($id)
             ]
         ];
 
@@ -39,7 +41,6 @@ class TopicController extends AbstractController implements ControllerInterface{
     public function listPostByTopic($id){
         $postManager = new Postmanager();
         $topicManager = new TopicManager();
-        $categoryManager = new CategoryManager();
         return [
             "view" => VIEW_DIR."forum/listPosts.php",
             "data" => [

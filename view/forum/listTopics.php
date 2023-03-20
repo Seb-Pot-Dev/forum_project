@@ -7,18 +7,17 @@
 // dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
 
 $topics = $result["data"]['topics'];
-
+$categorie = $result["data"]['categorie'];
 ?>
 
-<h1>liste topics</h1>
+<h3><?=$categorie->getCategoryName()?></h3>
 
 <?php
 if($topics){
 foreach($topics as $topic){
 
     ?>
-    <a href="index.php?ctrl=topic&action=listPostByTopic&id=<?=$topic->getId()?>"><?=$topic->getTopicName()?></a>
-    <!-- problème : redirection directe -->
+    <a href="index.php?ctrl=topic&action=listPostByTopic&id=<?=$topic->getId()?>">- <?=$topic->getTopicName()?></a>
     <?php
 }
 };
