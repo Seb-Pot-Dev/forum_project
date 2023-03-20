@@ -7,15 +7,15 @@
 // dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
 
 $posts = $result["data"]['posts'];
-
+$topic = $result["data"]['topic'];
 ?>
 
-<h1><?=$posts->findTopicName()?></h1>
+<h1><?=$topic->getTopicName()?></h1>
 <!-- VOIR PROBLEMES ICI -->
 
 <?php
 if($posts){
-foreach($posts as $post){
+    foreach($posts as $post){
 
     ?>
     <p><?=$post->getPostDate()?></p>

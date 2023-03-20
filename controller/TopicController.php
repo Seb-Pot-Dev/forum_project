@@ -37,15 +37,16 @@ class TopicController extends AbstractController implements ControllerInterface{
 
     }
     public function findPostByTopic($id){
+        $postManager = new Postmanager();
+        $topicManager = new TopicManager();
 
-        $postManager = new PostManager();
         return [
             "view" => VIEW_DIR."forum/listPosts.php",
             "data" => [
                 "posts" => $postManager->listPostByTopic($id)
-            ]
+                ,"topic" => $topicManager->topicName($id)
+                ]
         ];
     }
-
 
 }

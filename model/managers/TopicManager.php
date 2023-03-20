@@ -26,7 +26,21 @@
                     DAO::select($sql, ['id' => $id], true), 
                     $this->className
                 );
-        }
 
+        }
+        //problèmes ici
+        public function topicName($id){
+            parent::connect();
+
+            $sql = "SELECT topicName
+                    FROM ".$this->tableName." t
+                    WHERE t.id_topic = :id
+                    ";
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['id' => $id], false), 
+                $this->className
+            );
+            
+        }
     }
     ?>
