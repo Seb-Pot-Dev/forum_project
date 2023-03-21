@@ -25,5 +25,15 @@ class PostController extends AbstractController implements ControllerInterface
             ]
         ];
     }
-
+    public function listPostByTopic($id)
+    {
+        $postManager = new Postmanager();
+        $topicManager = new TopicManager();
+        return [
+            "view" => VIEW_DIR . "forum/listPosts.php",
+            "data" => [
+                "posts" => $postManager->findPostByTopic($id), "topic" => $topicManager->findOneById($id)
+            ]
+        ];
+    }
 }

@@ -3,6 +3,7 @@
     
     use App\Manager;
     use App\DAO;
+    use App\AbstractController;
     use Model\Managers\TopicManager;
     use Controller\ForumController;
 

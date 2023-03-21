@@ -9,27 +9,29 @@
 $topics = $result["data"]['topics'];
 $categorie = $result["data"]['categorie'];
 ?>
+div
+<h3>Catégorie : <?= $categorie->getCategoryName() ?></h3>
 
-<h3><?=$categorie->getCategoryName()?></h3>
+<a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $categorie->getId() ?>">NOUVEAU TOPIC</a>
 
 <?php
-if($topics){?>
-<table>
-    <thead>
-        <tr>
-            <th>Topics de la catégorie <?=$categorie->getCategoryName()?></th>
-        </tr>
-    </thead>
-<?php
-foreach($topics as $topic){
-?>  
-    <tr>
-        <td><a href="index.php?ctrl=topic&action=listPostByTopic&id=<?=$topic->getId()?>"><?=$topic->getTopicName()?></a></td>
-    </tr>
+if ($topics) { ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Topics de la catégorie <?= $categorie->getCategoryName() ?>
+                </th>
+            </tr>
+        </thead>
+        <?php
+        foreach ($topics as $topic) {
+        ?>
+            <tr>
+                <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
+            </tr>
     <?php
-}
-};
-?>
+        }
+    };
+    ?>
     </tbody>
-</table>
-  
+    </table>
