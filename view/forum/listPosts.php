@@ -9,27 +9,39 @@
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
 ?>
-
+<!-- CONTAINER PRINCIPAL DU TOPIC -->
 <div class="forum-container">
+  <!--HEADER DU TOPIC -->
   <div class="forum-header">
     <h2 class="forum-category"><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$topic->getCategory()->getId()?>"><?=$topic->getCategory()->getCategoryName()?></a></h2>
     <h1 class="forum-title">/<?=$topic->getTopicName()?></h1>
   </div>
-  <div class="forum-posts">
-    <?php
-    if($posts){
-      foreach($posts as $post){
-    ?>
-        <div class="forum-post-card">
-            <div class="post-header">
-                <p class="post-user"><?=$post->getUser()->getNickName()?></p>
-                <p class="post-date"><?=$post->getPostDate()?></p>
-            </div>
-                <p class="post-text"><?=$post->getText()?></p>
-        </div>
-    <?php
-      }
-    };
-    ?>
-  </div>
+    <!--LIST des POSTS DU TOPIC -->
+    <div class="forum-posts">
+      <?php
+      if($posts){
+        foreach($posts as $post){
+      ?>
+          <div class="forum-post-card">
+              <div class="post-header">
+                  <p class="post-user"><?=$post->getUser()->getNickName()?></p>
+                  <p class="post-date"><?=$post->getPostDate()?></p>
+              </div>
+                  <p class="post-text"><?=$post->getText()?></p>
+          </div>
+      <?php
+        }
+      };
+      ?>
+    </div>
+
+  <!-- FORMULAIRE DE REPONSE -->
+    <form class="form-add-topic" action="index.php?ctrl=post&action=addPostByTopic&id=<?= $topic->getId() ?>" method="POST">
+
+      <label for="text">Texte de la réponse</label>
+      <textarea rows="5" name="text" id="text"></textarea>
+
+      <input type="submit" name="submit" id="submit" value="Répondre">
+
+    </form>
 </div>

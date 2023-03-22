@@ -9,11 +9,11 @@
 $topics = $result["data"]['topics'];
 $categorie = $result["data"]['categorie'];
 ?>
-
+<div class="listTopic-header">
 <h3>Catégorie : <?= $categorie->getCategoryName() ?></h3>
 
-<a  class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $categorie->getId() ?>">NOUVEAU TOPIC</a>
-
+<a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $categorie->getId() ?>">NOUVEAU TOPIC</a>
+</div>
 <?php
 if ($topics) { ?>
     <table>

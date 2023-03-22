@@ -36,4 +36,30 @@ class PostController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+    public function addPostByTopic($id){
+         //Définition des variables
+         $postManager = new PostManager();
+ 
+         //Si le form est soumis 
+         if (isset($_POST["submit"])) {
+             //et que les POST voulus sont définis && non vides
+             if (
+                 (isset($_POST["text"]) && (!empty($_POST["text"])))
+             ) {
+                 //On filtre les entrées
+                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+ 
+                     //user arbitraire en attendant de recup les données de session/login
+                     $user = 2;
+                 
+                 //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant
+                     // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)
+                 
+                 $postManager->add(["topic_id"=>$id, "user_id" => $user, "text" => $text]);
+ 
+                 //redirectTo permet de rediriger vers l'URL (controller, action, id)
+                 $this->redirectTo('post', 'listPostByTopic', $id);
+             }
+         }
+    }
 }

@@ -53,6 +53,7 @@ class TopicController extends AbstractController implements ControllerInterface
 
     public function addTopic($id)
     {
+    //$id = ID de la CATEGORY
         //Définition des variables
         $topicManager = new TopicManager();
         $postManager = new PostManager();

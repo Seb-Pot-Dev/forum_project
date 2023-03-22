@@ -38,7 +38,9 @@ nav{
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
+    max-width: fit-content;
 }
+
 .button-dark{
     background-color: var(--dark-blue);
     color: var(--sand);
@@ -68,7 +70,15 @@ tr:nth-child(even){
     color: white;
     background-color: #363E49;
 }
- 
+
+
+
+/*------listCategories----------*/
+.listTopic-header{
+  display: flex;
+  flex-direction: column;
+}
+
 /*------listPost-----*/
 .forum-container {
     max-width: 90%;
