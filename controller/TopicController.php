@@ -71,7 +71,7 @@ class TopicController extends AbstractController implements ControllerInterface
                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                     //user arbitraire en attendant de recup les données de session/login
-                    $user = 2;
+                    $user = 3;
                 
                 //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant
                     // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)

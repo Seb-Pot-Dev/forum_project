@@ -19,8 +19,9 @@ if ($topics) { ?>
     <table>
         <thead>
             <tr>
-                <th>Topics de la catégorie <?= $categorie->getCategoryName() ?>
+                <th>Categorie: <?= $categorie->getCategoryName() ?>
                 </th>
+                <th>Utilisateur</th>
             </tr>
         </thead>
         <?php
@@ -28,6 +29,7 @@ if ($topics) { ?>
         ?>
             <tr>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
+                <td><?=$topic->getUser()->getNickName()?></td>
             </tr>
     <?php
         }

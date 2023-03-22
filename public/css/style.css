@@ -136,7 +136,18 @@ tr:nth-child(even){
     display: flex;
     flex-direction: column;
   }
+  .form-add-topic input[type="text"]{
+    background-color: var(--sand);
+    border-radius: 5px;
+    border-width: 1px;
+  }
   textarea{
     max-width: 100%;
     min-width: 100%;
+    background-color: var(--sand);
+    border-radius: 5px;
+    margin-bottom: 1%;
+  }
+  .form-add-topic input[type="submit"]{
+  max-width: fit-content;
   }
