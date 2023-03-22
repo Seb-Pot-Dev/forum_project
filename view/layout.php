@@ -49,7 +49,8 @@
                         else{
                             ?>
                             <a class="button-dark" href="./view/security/login.php">Connexion</a>
-                            <a class="button-light" href="/security/register.html">Inscription</a>
+                            <a class="button-dark" href="index.php?ctrl=security&action=index">Inscription</a>
+                            <!--<a class="button-light" href="/security/register.html">Inscription</a>-->
                         <?php
                         }
                    
