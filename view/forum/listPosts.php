@@ -19,7 +19,11 @@ $topic = $result["data"]['topic'];
     <!--LIST des POSTS DU TOPIC -->
     <div class="forum-posts">
       <?php
+      //si $posts est défini
       if($posts){
+        /* Alors boucle qui pour chaque ligne stockées dans $posts
+        va chercher les donnés demandées par les méthodes "getUser()" etc...
+        */
         foreach($posts as $post){
       ?>
           <div class="forum-post-card">

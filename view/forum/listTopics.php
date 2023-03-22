@@ -1,30 +1,41 @@
-<?php
-// Au départ, on passe par l'index, qui va nous aiguiller vers une des methodes du controller
-// Puis si on envoie une requette a la BDD, on passera par la couche "Manager" qui
-// va renvoyer une réponse au "Controller" 
-// et le controller va renvoyer une "View"
-
-// dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
+<?php 
+/*
+-- INITALISATION des VARIABLES qui contiennent les DONNEES des "$TOPICS" et de la "$CATEGORIE"
+-- tel que définis par le CONTROLLER "TopicController.php" 
+-- dans la méthode "listTopicsByCategory()"
+-- qui utilise la méthodes du MANAGER "TopicManager.php"
+-- "findTopicsByCategory()" pour faire les requetes en BDD
+*/
 
 $topics = $result["data"]['topics'];
 $categorie = $result["data"]['categorie'];
 ?>
-<div class="listTopic-header">
-<h3>Catégorie : <?= $categorie->getCategoryName() ?></h3>
 
-<a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $categorie->getId() ?>">NOUVEAU TOPIC</a>
+<!-- HEADER de listTopics-->
+<div class="listTopics-header">
+    <h3>Catégorie : <?= $categorie->getCategoryName() ?></h3>
+    <a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $categorie->getId() ?>">NOUVEAU TOPIC</a>
 </div>
+
+<!-- LIST des TOPICS -->
+
 <?php
+//DEBUT CONDITION si $topics est défini
 if ($topics) { ?>
+    <!-- DEBUT de la TABLE -->
     <table>
         <thead>
             <tr>
+                <!-- th CATEGORIE + th UTILISATEUR -->
                 <th>Categorie: <?= $categorie->getCategoryName() ?>
                 </th>
                 <th>Utilisateur</th>
             </tr>
         </thead>
         <?php
+        /* FOREACH qui pour chaque ligne stockées dans $topics
+        va chercher les donnés demandées par les méthodes "getId()", "getTopicName()" etc...
+        */
         foreach ($topics as $topic) {
         ?>
             <tr>
@@ -33,7 +44,10 @@ if ($topics) { ?>
             </tr>
     <?php
         }
+        // FIN FOREACH
     };
+    //FIN CONDITION
     ?>
     </tbody>
-    </table>
+</table>
+<!--FIN de la TABLE-->

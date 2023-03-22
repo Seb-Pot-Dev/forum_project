@@ -25,6 +25,8 @@ class TopicController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+
+    // méthode pour LISTER les TOPICS par CATEGORIE
     public function listTopicsByCategory($id)
     {
 
@@ -40,6 +42,7 @@ class TopicController extends AbstractController implements ControllerInterface
         ];
     }
 
+    // méthode pour diriger vers la page d'ajout de topic et chercher les infos sur la catégorie
     public function linkAddTopic($id){
         $categoryManager = new CategoryManager();
         return [
@@ -51,6 +54,7 @@ class TopicController extends AbstractController implements ControllerInterface
 
     }
 
+    // méthode pour AJOUTER un TOPIC 
     public function addTopic($id)
     {
     //$id = ID de la CATEGORY

@@ -73,8 +73,8 @@ tr:nth-child(even){
 
 
 
-/*------listCategories----------*/
-.listTopic-header{
+/*------listTopics----------*/
+.listTopics-header{
   display: flex;
   flex-direction: column;
 }
