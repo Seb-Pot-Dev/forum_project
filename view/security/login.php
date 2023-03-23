@@ -2,7 +2,7 @@
 if (isset($result["data"]['error'])){
     $error = $result["data"]['error'];
 };
-if(isset(["data"]['success'])){
+if(isset($result["data"]['success'])){
     $success = $result["data"]['success'];
 };
 // var_dump($error);die;
@@ -20,6 +20,11 @@ if(isset(["data"]['success'])){
 
 </form>
 
-<?php if(isset($error)){
+<?php 
+if(isset($error)){
     echo "<p>".$error."</p>";}
+    
+if(isset($success)){
+    echo "<p>".$success."</p>";
+    }
     ;?>

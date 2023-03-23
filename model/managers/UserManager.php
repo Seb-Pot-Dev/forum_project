@@ -38,6 +38,8 @@
                 $this->className
             );
         }
-
+        public function findPasswordByNickname($nickName){
+            
+        }
     }
     ?>

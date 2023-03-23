@@ -250,12 +250,40 @@ class SecurityController extends AbstractController implements ControllerInterfa
             //Si chaques $_POST["..."] sont définis
             if (isset($_POST["email"]) && isset($_POST["password"])) {
                 //On filtres les $_POST et les associes a des variables A FAIRE /!\
-                $email = $_POST["email"];
-                $password = $_POST["password"];
-            }
+                $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS);            
+                // var_dump($userManager->findOneByEmail($email)->getPassword());die;
 
-
+                    //Si l'email n'existe pas en base de donnée
+                    if((!$userManager->findOneByEmail($email))===true){
+                        return [
+                            "view" => VIEW_DIR . "security/login.php",
+                            "data" => [
+                                "error" => "L'email fourni ne correspond à aucuns utilisateurs" //msg d'erreur
+                            ]
+                        ];
+                    }
+                    //Sinon (si l'email existe)
+                    else{
+                        //Si le $password correspond au $password haché correspond au $email en bdd
+                        if((password_verify($password, $userManager->findOneByEmail($email)->getPassword()))){
+                        return [
+                            "view" => VIEW_DIR . "security/login.php",
+                            "data" => [
+                                "success" => "L'authentification à réussi" //msg de succès
+                            ]
+                        ];
+                        }
+                        //Sinon (si le $password ne correspond pas au $email)
+                        elseif((password_verify($password, $userManager->findOneByEmail($email)->getPassword()))===false){
+                            return [
+                                "view" => VIEW_DIR . "security/login.php",
+                                "data" => [
+                                "error" => "Le mot de passe ne correspond pas a l'email renseigné" //msg de succès
+                                ]
+                            ];
+                        }
+                    }
     }
 }
-}
-// ds le manager faire un methode qui retrouve les infos du user a travers son mail (where mail=$mail)
+}}
