@@ -26,7 +26,21 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ]
         ];
     }
-    public function register()
+    public function linkToLogin()
+    {
+
+
+        $userManager = new UserManager();
+
+        return [
+            "view" => VIEW_DIR . "security/login.php",
+            "data" => [
+                "users" => $userManager->findAll(["registrationDate", "DESC"])
+            ]
+        ];
+    }
+    
+    public function registerOld()
     {
 
         $userManager = new UserManager();
@@ -53,9 +67,9 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
                 // on boucle sur tout les nickName d'utilisateur et...
                 foreach ($userList as $user) {
-                    //... si le $_POST["nickName"] est equivalent a un des nickname...
+                    //... si le $_POST["nickName"] est equivalent a un des nickname (existe déjà)...
                     if ($user->getNickname() == $nickName) {
-                        //... alors $nickName = NULL
+                        //... alors on dit $nickName = NULL pour bloquer les prochaines étapes
                         $nickName = NULL;
                         break;
                     }
@@ -76,7 +90,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         $this->redirectTo('security', 'index');
                     }
 
-                    /*AUTREMENT, le nickName est NULL car existe déjà 
+                    /*AUTREMENT, le nickName est NULL, car existe déjà 
                     alors on return la view du register et le message d'erreur correspondant*/ 
                     else {
                         return [
@@ -99,22 +113,112 @@ class SecurityController extends AbstractController implements ControllerInterfa
             }
         }
     }
-
-    public function login()
+    public function register()
     {
         $userManager = new UserManager();
 
+        // si $_POST["submit"] est défini
         if (isset($_POST["submit"])) {
-            if (isset($_POST["email"]) && isset($_POST["password"])) {
+            // si chaques $_POST["..."] sont définis
+            if (
+                isset($_POST["nickName"])
+                && isset($_POST["password"])
+                && isset($_POST["passwordConfirm"])
+                && isset($_POST["email"])
+            ) {
 
+                // on filtre les $_POST 
+                $nickName = filter_input(INPUT_POST, "nickName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $passwordConfirm = filter_input(INPUT_POST, "passwordConfirm", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+            
+                /*
+                Vérifie si le $email fourni ET le $nickName fourni existent déjà. 
+                Si il existe déjà, (!$userManager->findOneByEmail($email) renvoie FALSE
+                S'il n'existe pas encore, renvoie TRUE
+                */
+                if((!$userManager->findOneByEmail($email))===true
+                && (!$userManager->findOneByNickname($nickName)===true)
+                ) {
+                    // ---- si les MDP et MDPconfirm correspondent ---
+                    if ($password == $passwordConfirm) {
+                        //On hash le mot de passe
+                        $password = password_hash($password, PASSWORD_DEFAULT);
+                        //alors ON AJOUTE ENFIN L'UTILISATEUR EN BDD.
+                        $userManager->add(["nickName" => $nickName, "password" => $password, "email" => $email]);
+                        //ET on REDIRIGE vers le lien défini dans l'INDEX
+                        $this->redirectTo('security', 'index');
+                    }
+                    // ---- autrement, c'est que les MDP et MDPconfirm NE correspondent PAS  ---
+                    else {
+                        return [
+                            "view" => VIEW_DIR . "security/register.php",
+                            "data" => [
+                                "error" => "Les mots de passes ne correspondent pas."
+                            ]
+                        ];
+                    }
+                }
+                    //Si l'$email existe déjà mais que le $nickName n'existe pas encore
+                elseif((!$userManager->findOneByEmail($email))===false
+                && (!$userManager->findOneByNickname($nickName)===true)
+                ){
+                    return [
+                        "view" => VIEW_DIR . "security/register.php",
+                        "data" => [
+                            "error" => "Le mail utilisé correspond a un compte existant "
+                        ]
+                    ];
+                }
+                    //Si l'$nickName existe déjà mais que le $email n'existe pas encore
+                elseif((!$userManager->findOneByEmail($email))===true
+                && (!$userManager->findOneByNickname($nickName)===false)
+                ){
+                    return [
+                        "view" => VIEW_DIR . "security/register.php",
+                        "data" => [
+                            "error" => "Le pseudo existe déjà "
+                        ]
+                    ];
+                }
+                elseif((!$userManager->findOneByEmail($email))===false
+                && (!$userManager->findOneByNickname($nickName)===false)
+                ){
+                    return [
+                        "view" => VIEW_DIR . "security/register.php",
+                        "data" => [
+                            "error" => "Le pseudo ET l'email sont déjà utilisés par un utilisateur"
+                        ]
+                    ];
+                }
+            }
+            
+        }
+    }
+    
+
+
+
+    public function loginOld()
+    {
+        $userManager = new UserManager();
+        //Si $_POST["submit"] est défini 
+        if (isset($_POST["submit"])) {
+            //Si chaques $_POST["..."] sont définis
+            if (isset($_POST["email"]) && isset($_POST["password"])) {
+                //On filtres les $_POST et les associes a des variables A FAIRE /!\
                 $email = $_POST["email"];
                 $password = $_POST["password"];
             }
+            //On défini userList comme correspondant a la liste des tout les users, classés par email desc
             $userList = $userManager->findAll(["Email", "DESC"]);
 
+            //Boucle foreach sur chaque élément de userList considérés comme $user
             foreach ($userList as $user) {
+                //Si AUCUNS des mails d'utilisateur NE correspond a l'email du $_POST
                 if ($user->getEmail() != $email) {
-
+                    //On return un message d'erreur et renvoie a la vue du login, puis break la boucle.
                     return [
                         "view" => VIEW_DIR . "security/login.php",
                         "data" => [
@@ -123,7 +227,35 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     ];
                     break;
                 }
+                //SINON, un mail correspond
+                else{
+                    //Si un mail correspond && que le mot de passe correspond
+                    if (($user->getEmail() == $email) && (password_verify($password, $user->getPassword()) )) {
+                        //On return un message de success et renvoie a la vue du login
+                        return [
+                            "view" => VIEW_DIR . "security/login.php",
+                            "data" => [
+                                "success" => "Connexion réussie"
+                            ]
+                        ];
+                }
             }
         }
     }
+    }
+    public function login(){
+        $userManager = new UserManager();
+        //Si $_POST["submit"] est défini 
+        if (isset($_POST["submit"])) {
+            //Si chaques $_POST["..."] sont définis
+            if (isset($_POST["email"]) && isset($_POST["password"])) {
+                //On filtres les $_POST et les associes a des variables A FAIRE /!\
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+            }
+
+
+    }
 }
+}
+// ds le manager faire un methode qui retrouve les infos du user a travers son mail (where mail=$mail)

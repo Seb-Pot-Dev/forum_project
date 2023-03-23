@@ -14,7 +14,30 @@
         public function __construct(){
             parent::connect();
         }
+        public function findOneByEmail($email){
 
+            $sql = "SELECT *
+                    FROM ".$this->tableName." a
+                    WHERE a.email = :email;
+                    ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['email' => $email], false), 
+                $this->className
+            );
+        }
+        public function findOneByNickname($nickName){
+
+            $sql = "SELECT *
+                    FROM ".$this->tableName." a
+                    WHERE a.nickName = :nickName;
+                    ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['nickName' => $nickName], false), 
+                $this->className
+            );
+        }
 
     }
     ?>

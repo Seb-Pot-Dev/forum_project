@@ -141,6 +141,13 @@ tr:nth-child(even){
     border-radius: 5px;
     border-width: 1px;
   }
+
+  .form-add-topic input[type="password"]{
+    background-color: var(--sand);
+    border-radius: 5px;
+    border-width: 1px;
+  }
+  
   textarea{
     max-width: 100%;
     min-width: 100%;

@@ -15,10 +15,10 @@ if (isset($result["data"]['error'])){
     <input type="text" name="nickName" id="nickName">
 
     <label for="password">Mot de passe</label>
-    <input type ="text" name="password" id="password"></input>
+    <input type ="password" name="password" id="password"></input>
 
     <label for="passwordConfirm">Confirmez le mot de passe</label>
-    <input type ="text" name="passwordConfirm" id="passwordConfirm"></input>
+    <input type ="password" name="passwordConfirm" id="passwordConfirm"></input>
 
     <label for="email">Email</label>
     <input type ="text" name="email" id="email"></input>
