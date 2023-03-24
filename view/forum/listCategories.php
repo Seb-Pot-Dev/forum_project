@@ -1,4 +1,7 @@
 <?php
+if (isset($result["data"]['error'])){
+    $error = $result["data"]['error'];
+};
 // Au départ, on passe par l'index, qui va nous aiguiller vers une des methodes du controller
 // Puis si on envoie une requette a la BDD, on passera par la couche "Manager" qui
 // va renvoyer une réponse au "Controller" 
@@ -35,5 +38,9 @@ foreach($categories as $category){
 ?>
     </tbody>
 </table>
+<?php
+if(isset($error)){
+    echo "<p>".$error."</p>";}
+?>
 
   

@@ -7,11 +7,11 @@
 final class User extends Entity
 {
 
+    private $id;
     private $nickName;
     private $email;
     private $password;
     private $registrationDate;
-    private $user;
 
     public function __construct($data)
     {
@@ -91,19 +91,21 @@ final class User extends Entity
     }
 
     /**
-     * Get the value of user
+     * Get the value of id
      */ 
-    public function getUser()
+    public function getId()
     {
-        return $this->user;
+        return $this->id;
     }
 
     /**
-     * Set the value of user
+     * Set the value of id
+     *
+     * @return  self
      */ 
-    public function setUser($user)
+    public function setId($id)
     {
-        $this->user = $user;
+        $this->id = $id;
 
         return $this;
     }

@@ -41,16 +41,18 @@
                         <?php
                         
                         if(App\Session::getUser()){
+                            //viewProfile -> infos de l'utilisateur 
+                            // var_dump($_SESSION["user"]);die;
+                            // <span class="fas fa-user"></span>&nbsp;
                             ?>
-                            <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
-                            <a href="/security/logout.html">Déconnexion</a>
+                            <a href="index.php?ctrl=security&action=viewProfile">Voir mon profile</a>
+                            <a href="index.php?ctrl=security&action=logOut">Déconnexion</a>
                             <?php
                         }
                         else{
                             ?>
                             <a class="button-dark" href="index.php?ctrl=security&action=login">Connexion</a>
                             <a class="button-dark" href="index.php?ctrl=security&action=register">Inscription</a>
-                            <!--<a class="button-light" href="/security/register.html">Inscription</a>-->
                         <?php
                         }
                    

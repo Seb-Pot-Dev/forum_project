@@ -143,7 +143,6 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 //On filtres les $_POST et les associes a des variables A FAIRE /!\
                 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS);            
-                // var_dump($userManager->findOneByEmail($email)->getPassword());die;
 
                     //Si l'email n'existe pas en base de donnée
                     if((!$userManager->findOneByEmail($email))===true){
@@ -156,22 +155,28 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     }
                     //Sinon (si l'email existe)
                     else{
+                        //$hash=$password haché présent en bdd
                         $hash=$userManager->findOneByEmail($email)->getPassword();
-                        //Si le $password correspond au $password haché correspond au $email en bdd
+                        //Si le $password correspond au $password haché correspondant au $email en bdd
                         if((password_verify($password, $hash))){
-                        return [
-                            "view" => VIEW_DIR . "security/login.php",
-                            "data" => [
-                                "success" => "L'authentification à réussi" //msg de succès
-                            ]
-                        ];
+
+
+                            //définition du $user par son email
+                            $user=$userManager->findOneByEmail($email);
+
+                            //placer l'utilisateur en session 
+                            Session::setUser($user);
+
+                            //redirige vers l'index
+                            $this->redirectTo('category', 'index');
+
                         }
                         //Sinon (si le $password ne correspond pas au $email)
                         elseif((password_verify($password, $hash))===false){
                             return [
                                 "view" => VIEW_DIR . "security/login.php",
                                 "data" => [
-                                "error" => "Le mot de passe ne correspond pas a l'email renseigné" //msg d'echec
+                                    "error" => "Le mot de passe ne correspond pas a l'email renseigné" //msg d'echec
                                 ]
                             ];
                         }
@@ -186,4 +191,29 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ];
         }
     }
+
+    // -- Pour voir les infos du profile d'utilisateur en session
+    public function viewProfile(){
+        //Si un utilisateur est renseigné en session
+        if($_SESSION["user"]){
+            //retourne la vue correspondante et renseigne le champs "user" avec les infos du user en session
+            return [
+                "view" => VIEW_DIR. "security/viewProfile.php",
+                "data" => [
+                    "user" => $_SESSION["user"]
+                ]
+            ];
+        }
+    }
+    // -- pour se déconnecter
+    public function logout(){
+        //Si un utilisateur est renseigné en session
+        if($_SESSION["user"]){
+            //détruit tout donnée associées a la variable $session
+            session_destroy();
+            //redirige vers l'index du user
+            $this->redirectTo('user', 'index');
+        }
+    }
+    
 }

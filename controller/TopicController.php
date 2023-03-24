@@ -69,22 +69,33 @@ class TopicController extends AbstractController implements ControllerInterface
             if (
                 isset($_POST["topicName"]) && (!empty($_POST["topicName"]))
                 && (isset($_POST["text"]) && (!empty($_POST["text"])))
+                && (isset($_SESSION["user"]))
             ) {
                 //On filtre les entrées
                 $topicName = filter_input(INPUT_POST, "topicName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                    //user arbitraire en attendant de recup les données de session/login
-                    $user = 3;
+                    //user  recup les données de session/login
+                    // var_dump($_SESSION["user"]);die;
+                    $user = $_SESSION["user"]->getId();
                 
                 //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant
                     // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)
                 $lastIdOfTopicAddedToDbb = $topicManager->add(["topicName" => $topicName, "user_id" => $user, "category_id" => $id]);
                 
+                //ajout en BDD
                 $postManager->add(["topic_id"=>$lastIdOfTopicAddedToDbb, "user_id" => $user, "text" => $text]);
 
                 //redirectTo permet de rediriger vers l'URL (controller, action, id)
                 $this->redirectTo('topic', 'listTopicsByCategory', $id);
+            }
+            else {
+                return [
+                    "view"=> VIEW_DIR . "forum/addTopic.php",
+                    "data" => [
+                        "error" => "Echec de la création du topic"
+                    ]
+                ];            
             }
         }
     }

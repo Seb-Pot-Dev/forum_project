@@ -17,8 +17,7 @@ if(isset($result["data"]['success'])){
     <input type ="password" name="password" id="password"></input>
 
     <input class="button-dark" type="submit" name="submit" id="submit" value="Se connecter">
-
-</form>
+    </form>
 
 <?php 
 if(isset($error)){
