@@ -5,10 +5,15 @@
 // et le controller va renvoyer une "View"
 
 // dans le dossier view/forum, j'ai toutes mes views qui concernent le forum.
-
+if (isset($result["data"]['posts'])){
 $posts = $result["data"]['posts'];
+}
+if (isset($result["data"]['topic'])){
 $topic = $result["data"]['topic'];
+}
+if (isset($result["data"]['error'])){
 $error = $result["data"]['error'];
+}
 ?>
 <!-- CONTAINER PRINCIPAL DU TOPIC -->
 <div class="forum-container">
