@@ -37,11 +37,13 @@ class PostController extends AbstractController implements ControllerInterface
         ];
     }
     public function addPostByTopic($id){
-         //Définition des variables
-         $postManager = new PostManager();
- 
+        //Définition des variables
+        $postManager = new PostManager();
+        $topicManager = new TopicManager();
+
          //Si le form est soumis 
-         if (isset($_POST["submit"])) {
+         if ((isset($_POST["submit"]))
+         && (isset($_SESSION["user"]))) {
              //et que les POST voulus sont définis && non vides
              if (
                  (isset($_POST["text"]) && (!empty($_POST["text"])))
@@ -50,7 +52,7 @@ class PostController extends AbstractController implements ControllerInterface
                  $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
  
                      //user arbitraire en attendant de recup les données de session/login
-                     $user = 2;
+                     $user = $_SESSION["user"]->getId();
                  
                  //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant
                      // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)
@@ -61,5 +63,14 @@ class PostController extends AbstractController implements ControllerInterface
                  $this->redirectTo('post', 'listPostByTopic', $id);
              }
          }
+        else{
+            return [
+                "view" => VIEW_DIR . "forum/listPosts.php",
+                "data" => [
+                    "posts" => $postManager->findPostByTopic($id), "topic" => $topicManager->findOneById($id),
+                    "error" => "Veuillez vous connectez afin de répondre sur un topic"
+                ]
+            ];
+        }
     }
 }

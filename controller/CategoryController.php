@@ -23,8 +23,6 @@ class CategoryController extends AbstractController implements ControllerInterfa
         ];
     
     }
-    //ici voir comment crééer lien sur le nom du forum pour renvoyer vers la lsite des sujet de la catégorie
-    // public function 
 
     
 

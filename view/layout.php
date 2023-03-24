@@ -45,14 +45,14 @@
                             // var_dump($_SESSION["user"]);die;
                             // <span class="fas fa-user"></span>&nbsp;
                             ?>
-                            <a href="index.php?ctrl=security&action=viewProfile">Voir mon profile</a>
-                            <a href="index.php?ctrl=security&action=logOut">Déconnexion</a>
+                            <a class="button-dark" href="index.php?ctrl=security&action=viewProfile"><?=$_SESSION["user"]->getNickname()?></a>
+                            <a class="button-dark" href="index.php?ctrl=security&action=logOut">Déconnexion</a>
                             <?php
                         }
                         else{
                             ?>
                             <a class="button-dark" href="index.php?ctrl=security&action=login">Connexion</a>
-                            <a class="button-dark" href="index.php?ctrl=security&action=register">Inscription</a>
+                            <a class="button-light" href="index.php?ctrl=security&action=register">Inscription</a>
                         <?php
                         }
                    

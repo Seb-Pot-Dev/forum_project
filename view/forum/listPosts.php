@@ -8,6 +8,7 @@
 
 $posts = $result["data"]['posts'];
 $topic = $result["data"]['topic'];
+$error = $result["data"]['error'];
 ?>
 <!-- CONTAINER PRINCIPAL DU TOPIC -->
 <div class="forum-container">
@@ -38,14 +39,20 @@ $topic = $result["data"]['topic'];
       };
       ?>
     </div>
-
-  <!-- FORMULAIRE DE REPONSE -->
+    
+  <?php
+//affiche un message "Veuillez vous connecter..." si aucune $_SESSION["user"] a été défini 
+if(isset($error)){
+  echo "<p>".$error."</p>";
+}
+?>
+    <!-- FORMULAIRE DE REPONSE -->
     <form class="form-add-topic" action="index.php?ctrl=post&action=addPostByTopic&id=<?= $topic->getId() ?>" method="POST">
-
-      <label for="text">Texte de la réponse</label>
-      <textarea rows="5" name="text" id="text"></textarea>
-
-      <input type="submit" name="submit" id="submit" value="Répondre">
-
-    </form>
+      
+    <label for="text">Texte de la réponse</label>
+    <textarea rows="5" name="text" id="text"></textarea>
+    
+    <input type="submit" name="submit" id="submit" value="Répondre">
+    
+  </form>
 </div>
