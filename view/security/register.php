@@ -3,6 +3,9 @@
 if (isset($result["data"]['error'])){
     $error = $result["data"]['error'];
 };
+if (isset($result["data"]['success'])){
+    $success = $result["data"]['success'];
+};
 // var_dump($error);die;
 ?>
 
@@ -28,6 +31,11 @@ if (isset($result["data"]['error'])){
 
 </form>
 <!--FIN FORM-->
-<?php if(isset($error)){
-    echo "<p>".$error."</p>";}
+<?php 
+if(isset($error)){
+    echo "<p>".$error."</p>";
+}
+if(isset($success)){
+    echo "<p>".$success."</p>";
+}
     ;?>
