@@ -44,6 +44,7 @@ $error = $result["data"]['error'];
       };
       ?>
     </div>
+
     
   <?php
 //affiche un message "Veuillez vous connecter..." si aucune $_SESSION["user"] a été défini 

@@ -46,7 +46,7 @@
                             // <span class="fas fa-user"></span>&nbsp;
                             ?>
                             <a class="button-dark" href="index.php?ctrl=security&action=viewProfile"><?=$_SESSION["user"]->getNickname()?></a>
-                            <a class="button-dark" href="index.php?ctrl=security&action=logOut">Déconnexion</a>
+                            <a class="button-dark-logout" href="index.php?ctrl=security&action=logOut">Déconnexion</a>
                             <?php
                         }
                         else{

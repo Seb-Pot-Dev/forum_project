@@ -10,8 +10,11 @@
 }
 :root{
     --light-blue: #84B5CB;
+    --light-blue-hover:#619db8;
     --dark-blue: #2C3E50;
+    --dark-blue-hover: #132436;
     --sand: #CBB292;
+    --error: rgb(109, 46, 46); 
 }
 /*----------NAV BAR-----------*/
 nav{
@@ -32,6 +35,7 @@ nav{
     height: auto;
     margin: 2%;
 }
+/*----------BUTTON-----------*/
 .button-light{
     background-color: var(--light-blue);
     color: var(--dark-blue);
@@ -40,13 +44,37 @@ nav{
     border-radius: 5px;
     max-width: fit-content;
 }
+.button-light:hover{
+    background-color: var(--light-blue-hover);
+    transition: 0.25s;
+}
 
 .button-dark{
-    background-color: var(--dark-blue);
-    color: var(--sand);
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
+  background-color: var(--dark-blue);
+  color: var(--sand);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+.button-dark:hover{
+    background-color: var(--dark-blue-hover);
+    transition: 0.25s;
+}
+
+.button-dark-logout{
+  background-color: var(--dark-blue);
+  color: var(--sand);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+.button-dark-logout:hover{
+  background-color: var(--error);
+  color: var(--sand);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  transition: 0.35s;
 }
 /*----------TABLE-------------*/
 table{
