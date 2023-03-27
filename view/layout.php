@@ -116,7 +116,7 @@
                 },
                 function(result){
                     $("#nbajax").html(result)
-                }
+                }a
             )
         })*/
     </script>
