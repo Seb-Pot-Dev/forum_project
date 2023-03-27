@@ -16,6 +16,12 @@ $categories = $result["data"]['categories'];
 <h3>Liste des categories</h3>
 
 <?php
+// TO BE CONTINUED 
+// if ($_SESSION["user"]->getRole()=="Admin") {
+//     echo <form action="index.php?ctrl=topic&action=createNewCategory" method="post">;
+    
+// }
+
 if($categories){?>
 
 <table>

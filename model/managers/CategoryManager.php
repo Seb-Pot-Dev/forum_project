@@ -35,5 +35,10 @@ qui seront appelés par la suite par le CONTROLLER.
                 $this->className
             );
         }
+        public function createNewCategory(){
+            if($_SESSION["user"]->getRole() == "admin"){
+                
+                //to be contineud
+        }
     }
     ?>

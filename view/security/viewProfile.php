@@ -1,5 +1,14 @@
 <?php 
+$user=$_SESSION["user"];
 ?>
-<p>Mon pseudo : <?=$_SESSION["user"]->getNickname();?></p>
-<p>Date d'inscription : <?=$_SESSION["user"]->getRegistrationDate();?></p>
-<p>Role : <?=$_SESSION["user"]->getRole();?></p>
+<p>Mon pseudo : <?=$user->getNickname();?></p>
+<p>Role : <?=$user->getRole();?></p>
+<p>Date d'inscription : <?=$user->getRegistrationDate();?></p>
+<p>Mon email : <?=$user->getEmail();?></p>
+<?php if($user->getBan()==1){
+
+    echo "<p>Etat du compte : Votre compte a été banni par un administrateur.
+    </p>";
+}
+
+?>

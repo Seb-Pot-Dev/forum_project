@@ -40,6 +40,24 @@
                 return DAO::delete($sql, ['id' => $id]); 
         }
 
+        public function findPostsByUser($id){
+        $order=["postDate", "DESC"];
+
+        $orderQuery = ($order) ?
+            "ORDER BY ".$order[0]. " ".$order[1] :
+            "";
+
+        $sql = "SELECT *
+                            FROM ".$this->tableName." a
+                            WHERE a.user_id = :id
+                            ".$orderQuery;
+
+        return $this->getMultipleResults(
+            DAO::select($sql, ['id' => $id]), 
+            $this->className
+        );
+    }
+        
         
     }
     ?>
