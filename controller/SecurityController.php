@@ -72,8 +72,9 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     if ($password == $passwordConfirm) {
                         //On hash le mot de passe
                         $password = password_hash($password, PASSWORD_DEFAULT);
+
                         //alors ON AJOUTE ENFIN L'UTILISATEUR EN BDD.
-                        $userManager->add(["nickName" => $nickName, "password" => $password, "email" => $email]);
+                        $userManager->add(["nickName" => $nickName, "password" => $password, "email" => $email]);//le rôle est défini par défaut en "normal" et ban en "0"
                         //ET on REDIRIGE vers le lien défini dans l'INDEX
                         return [
                             "view" => VIEW_DIR . "security/register.php",
@@ -140,12 +141,15 @@ class SecurityController extends AbstractController implements ControllerInterfa
         if (isset($_POST["submit"])) {
             //Si chaques $_POST["..."] sont définis
             if (isset($_POST["email"]) && isset($_POST["password"])) {
-                //On filtres les $_POST et les associes a des variables A FAIRE /!\
+                //On filtres les $_POST et les associes a des variables
                 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS);            
 
+                //définition du $user par son email
+                $user = $userManager->findOneByEmail($email);
+
                     //Si l'email n'existe pas en base de donnée
-                    if((!$userManager->findOneByEmail($email))===true){
+                    if((!$user)===true){
                         return [
                             "view" => VIEW_DIR . "security/login.php",
                             "data" => [
@@ -155,35 +159,43 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     }
                     //Sinon (si l'email existe)
                     else{
-                        //$hash=$password haché présent en bdd
-                        $hash=$userManager->findOneByEmail($email)->getPassword();
-                        //Si le $password correspond au $password haché correspondant au $email en bdd
-                        if((password_verify($password, $hash))){
+                        //Si l'utilisateur n'est pas banni
+                        if ($user->getBan()==0) {
+                            //$hash=$password haché présent en bdd
+                            $hash=$userManager->findOneByEmail($email)->getPassword();
 
+                            //Si le $password correspond au $password haché correspondant au $email en bdd
+                            if ((password_verify($password, $hash))) {
+                                //placer l'utilisateur en session
+                                Session::setUser($user);
 
-                            //définition du $user par son email
-                            $user=$userManager->findOneByEmail($email);
-
-                            //placer l'utilisateur en session 
-                            Session::setUser($user);
-
-                            //redirige vers l'index
-                            $this->redirectTo('category', 'index');
-
+                                //redirige vers l'index
+                                $this->redirectTo('category', 'index');
+                            }
+                            //Sinon (si le $password ne correspond pas au $email)
+                            elseif ((password_verify($password, $hash))===false) {
+                                return [
+                                    "view" => VIEW_DIR . "security/login.php",
+                                    "data" => [
+                                        "error" => "Le mot de passe ne correspond pas a l'email renseigné" //msg d'echec
+                                    ]
+                                ];
+                            }
                         }
-                        //Sinon (si le $password ne correspond pas au $email)
-                        elseif((password_verify($password, $hash))===false){
+                        else{
                             return [
                                 "view" => VIEW_DIR . "security/login.php",
                                 "data" => [
-                                    "error" => "Le mot de passe ne correspond pas a l'email renseigné" //msg d'echec
+                                    "banned" => "Votre compte a été banni. Veuillez contacter un administrateur pour toutes réclamations."
                                 ]
                             ];
                         }
+                        }
                     }
             
-            }
+            
         }
+    
         //Sinon renvoie la view login.php
         else{
             return [

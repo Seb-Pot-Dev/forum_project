@@ -12,6 +12,8 @@ final class User extends Entity
     private $email;
     private $password;
     private $registrationDate;
+    private $role;
+    private $ban;
 
     public function __construct($data)
     {
@@ -106,6 +108,46 @@ final class User extends Entity
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set the value of role
+     *
+     * @return  self
+     */ 
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ban
+     */ 
+    public function getBan()
+    {
+        return $this->ban;
+    }
+
+    /**
+     * Set the value of ban
+     *
+     * @return  self
+     */ 
+    public function setBan($ban)
+    {
+        $this->ban = $ban;
 
         return $this;
     }

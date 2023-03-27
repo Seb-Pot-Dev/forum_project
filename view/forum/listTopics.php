@@ -6,9 +6,23 @@
 -- qui utilise la méthodes du MANAGER "TopicManager.php"
 -- "findTopicsByCategory()" pour faire les requetes en BDD
 */
+if(isset($result["data"]['topics'])){
+    $topics = $result["data"]['topics'];
+}
+if(isset($result["data"]['categorie'])){
+    $categorie = $result["data"]['categorie'];
+}
+if(isset($result["data"]['successDelete'])){
+    $successDelete = $result["data"]['successDelete'];
+}
+if(isset($result["data"]['errorDelete'])){
+    $errorDelete = $result["data"]['errorDelete'];
+}
+//Vérification si le user est admin
+if($_SESSION["user"]->getRole()=='admin'){
+    $admin=true;
+}
 
-$topics = $result["data"]['topics'];
-$categorie = $result["data"]['categorie'];
 ?>
 
 <!-- HEADER de listTopics-->
@@ -21,7 +35,7 @@ $categorie = $result["data"]['categorie'];
 
 <?php
 //DEBUT CONDITION si $topics est défini
-if ($topics) { ?>
+if (isset($topics) ){ ?>
     <!-- DEBUT de la TABLE -->
     <table>
         <thead>
@@ -30,6 +44,12 @@ if ($topics) { ?>
                 <th>Categorie: <?= $categorie->getCategoryName() ?>
                 </th>
                 <th>Utilisateur</th>
+                <?php
+                //Si $admin est déclaré
+                if(isset($admin)){
+                echo
+                "<th>Admin</th>";
+                }?>
             </tr>
         </thead>
         <?php
@@ -41,6 +61,15 @@ if ($topics) { ?>
             <tr>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
                 <td><?=$topic->getUser()->getNickName()?></td>
+                <?php
+                //Si $admin est déclaré
+                if(isset($admin)){
+                    echo 
+                    "<td>
+                        <a href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'>Suppr</a> 
+                    </td>";
+                }
+                ?>
             </tr>
     <?php
         }
@@ -51,3 +80,10 @@ if ($topics) { ?>
     </tbody>
 </table>
 <!--FIN de la TABLE-->
+<?php
+if(isset($successDelete)){
+    echo "<p>".$successDelete."</p>";
+}
+if(isset($errorDelete)){
+    echo "<p>".$errorDelete."</p>";
+}

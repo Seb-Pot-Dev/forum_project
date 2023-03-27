@@ -5,6 +5,7 @@ namespace Controller;
 use App\Session;
 use App\AbstractController;
 use App\ControllerInterface;
+use App\Manager;
 use Model\Managers\CategoryManager;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
@@ -54,7 +55,7 @@ class TopicController extends AbstractController implements ControllerInterface
 
     }
 
-    // méthode pour AJOUTER un TOPIC 
+    // méthode pour AJOUTER un TOPIC par $id category
     public function addTopic($id)
     {
     //$id = ID de la CATEGORY
@@ -97,6 +98,23 @@ class TopicController extends AbstractController implements ControllerInterface
                     ]
                 ];            
             }
+        }
+    }
+    public function deleteTopic($id){
+        //Définition des variables
+        $topicManager = new TopicManager();
+        $postManager = new PostManager();
+        $topic = $topicManager->findOneById($id);
+        $idCategory = $topic->getCategory()->getId();
+
+        if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getId==$topic->getUser())
+        {
+            $postManager->deletePostsByTopic($id);
+            $topicManager->delete($id);
+            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
+        }
+        else{
+            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
         }
     }
 }

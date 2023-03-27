@@ -14,6 +14,12 @@ $topic = $result["data"]['topic'];
 if (isset($result["data"]['error'])){
 $error = $result["data"]['error'];
 }
+//Vérification si le user est admin OU que c'est son topic
+$OwnerTopicId = $topic->getUser()->getId();
+  if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getId()==$OwnerTopicId){
+    $admin = true;
+  }
+                
 ?>
 <!-- CONTAINER PRINCIPAL DU TOPIC -->
 <div class="forum-container">
@@ -27,16 +33,28 @@ $error = $result["data"]['error'];
       <?php
       //si $posts est défini
       if($posts){
-        /* Alors boucle qui pour chaque ligne stockées dans $posts
+        //initialisation de $countPost a 0;
+        $countPost = 0;
+        /* Boucle qui pour chaque ligne stockées dans $posts
         va chercher les donnés demandées par les méthodes "getUser()" etc...
         */
         foreach($posts as $post){
+        //on incrémente $countPost a chaque tour de boucle
+        $countPost++;
       ?>
           <div class="forum-post-card">
               <div class="post-header">
                   <p class="post-user"><?=$post->getUser()->getNickName()?></p>
                   <p class="post-date"><?=$post->getPostDate()?></p>
-              </div>
+                  <?php
+                  //Si $admin est déclaré et que ce n'est pas le premier post
+                  if($admin=true && $countPost>1){
+                  echo
+                  "<a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
+                  <p>Suppr</p>
+                  </a>";
+                  } ?>
+                  </div>
                   <p class="post-text"><?=$post->getText()?></p>
           </div>
       <?php

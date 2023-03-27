@@ -5,6 +5,9 @@ if (isset($result["data"]['error'])){
 if(isset($result["data"]['success'])){
     $success = $result["data"]['success'];
 };
+if(isset($result["data"]['banned'])){
+    $banned = $result["data"]['banned'];
+}
 // var_dump($error);die;
 ?>
 
@@ -26,4 +29,7 @@ if(isset($error)){
 if(isset($success)){
     echo "<p>".$success."</p>";
     }
-    ;?>
+if(isset($banned)){
+    echo "<p>".$banned."</p>";
+}
+;?>
