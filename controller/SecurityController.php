@@ -62,11 +62,12 @@ class SecurityController extends AbstractController implements ControllerInterfa
             
                 /*
                 Vérifie si le $email fourni ET le $nickName fourni existent déjà. 
-                Si il existe déjà, (!$userManager->findOneByEmail($email) renvoie FALSE
-                S'il n'existe pas encore, renvoie TRUE
+                S'il n'existe pas encore, renvoie FALSE
                 */
-                if((!$userManager->findOneByEmail($email))===true
-                && (!$userManager->findOneByNickname($nickName)===true)
+
+                //Si il existe pas encore, on va crééer un nouveau user
+                if(($userManager->findOneByEmail($email)===false)
+                && ($userManager->findOneByNickname($nickName)===false)
                 ) {
                     // ---- si les MDP et MDPconfirm correspondent ---
                     if ($password == $passwordConfirm) {
@@ -94,8 +95,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     }
                 }
                     //Si l'$email existe déjà mais que le $nickName n'existe pas encore
-                elseif((!$userManager->findOneByEmail($email))===false
-                && (!$userManager->findOneByNickname($nickName)===true)
+                elseif(($userManager->findOneByEmail($email)===true)
+                && ($userManager->findOneByNickname($nickName)===false)
                 ){
                     return [
                         "view" => VIEW_DIR . "security/register.php",
@@ -105,8 +106,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
                     ];
                 }
                     //Si l'$nickName existe déjà mais que le $email n'existe pas encore
-                elseif((!$userManager->findOneByEmail($email))===true
-                && (!$userManager->findOneByNickname($nickName)===false)
+                elseif(($userManager->findOneByEmail($email)===false)
+                && ($userManager->findOneByNickname($nickName)===true)
                 ){
                     return [
                         "view" => VIEW_DIR . "security/register.php",
@@ -115,8 +116,8 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         ]
                     ];
                 }
-                elseif((!$userManager->findOneByEmail($email))===false
-                && (!$userManager->findOneByNickname($nickName)===false)
+                elseif(($userManager->findOneByEmail($email)===true)
+                && ($userManager->findOneByNickname($nickName)===true)
                 ){
                     return [
                         "view" => VIEW_DIR . "security/register.php",

@@ -23,6 +23,9 @@ if(isset($_SESSION["user"])){
 if ($_SESSION["user"]->getRole()=='admin') {
     $admin=true;
 }
+else{
+    $admin=false;
+}
 }
 
 ?>
@@ -48,7 +51,7 @@ if (isset($topics) ){ ?>
                 <th>Utilisateur</th>
                 <?php
                 //Si $admin est déclaré
-                if(isset($admin)){
+                if($admin){
                 echo
                 "<th>Admin</th>";
                 }?>
@@ -65,11 +68,11 @@ if (isset($topics) ){ ?>
                 <td><?=$topic->getUser()->getNickName()?></td>
                 <?php
                 //Si $admin est déclaré
-                if(isset($admin)){
+                if($admin){
                     echo 
-                    "<td>
-                        <a href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'><i class='fa-solid fa-trash'></i></a> 
-                        <a href='index.php?ctrl=topic&action=lockTopic&id=".$topic->getId()."'><i class='fa-solid fa-lock'></i></i></a> 
+                    "<td class='container-icon-admin'>
+                        <a class='icon-admin' href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'><i class='fa-solid fa-trash'></i></a> 
+                        <a class='icon-admin' href='index.php?ctrl=topic&action=lockTopic&id=".$topic->getId()."'><i class='fa-solid fa-lock'></i></i></a> 
 
                     </td>";
                 }
