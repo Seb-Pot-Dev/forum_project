@@ -39,6 +39,16 @@
             );
         }
         
+        public function banUserById($id){
+            parent::connect();
+
+        $sql =  "UPDATE " . $this->tableName .
+            " SET ban = 1 
+             WHERE id_user = :id";
+
+
+        return DAO::update($sql, ['id' => $id]);
+        }
         
     }
     ?>

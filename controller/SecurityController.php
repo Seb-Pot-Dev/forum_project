@@ -218,6 +218,17 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ];
         }
     }
+    public function viewOtherUserProfile($id){
+        $userManager = new UserManager;
+            //retourne la vue correspondante et renseigne le champs "user" avec les infos du user en session
+            return [
+                "view" => VIEW_DIR. "security/viewOtherUserProfile.php",
+                "data" => [
+                    "user" => $userManager->findOneById($id)
+                ]
+            ];
+        
+    }
     // -- pour se déconnecter
     public function logout(){
         //Si un utilisateur est renseigné en session
@@ -228,5 +239,20 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $this->redirectTo('user', 'index');
         }
     }
-    
+    public function banUser($id){
+        $userManager = new UserManager;
+        //récupération du Nickname du user
+        $userNickname = $userManager->findOneById($id)->getNickname();
+        //utilisation de la fonction pour ban en fonction de l'ID
+        $userManager->banUserById($id);
+
+        return [
+            "view" => VIEW_DIR. "forum/listTopics.php", //créer une vue Admin qui recense tout les utilisateurs bannis
+            "data" => [
+                "banSuccess" => "L'utilisateur".$userNickname."a été banni"
+            ]
+        ];
+
+        
+    }
 }
