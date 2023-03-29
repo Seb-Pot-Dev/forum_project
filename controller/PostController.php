@@ -47,13 +47,12 @@ class PostController extends AbstractController implements ControllerInterface
             && (isset($_SESSION["user"]))
         ) {
             //et que les POST voulus sont définis && non vides
-            if (
-                (isset($_POST["text"]) && (!empty($_POST["text"])))
+            if ((isset($_POST["text"]) && (!empty($_POST["text"])))
             ) {
                 //On filtre les entrées
                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                //user arbitraire en attendant de recup les données de session/login
+                //on récupère l'id du user en session
                 $user = $_SESSION["user"]->getId();
 
                 //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant

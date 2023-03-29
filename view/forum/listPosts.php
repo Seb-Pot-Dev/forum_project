@@ -16,13 +16,13 @@ $error = $result["data"]['error'];
 }
   //Récupération du userId
   $OwnerTopicId = $topic->getUser()->getId();
-  //Vérification si le user est admin
-  if($_SESSION["user"]->getRole()=='admin'){
-    $admin = true;
-  }
-  else{
-    $admin=false;
-  }
+//(Vérification si le user est défini) ET (qu'il est admin OU modérateur)
+if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getRole()=='moderator')) {
+  $admin=true;
+}
+else{
+  $admin=false;
+}
                 
 ?>
 <!-- CONTAINER PRINCIPAL DU TOPIC -->
@@ -50,14 +50,15 @@ $error = $result["data"]['error'];
               <div class="post-header">
                   <p class="post-user"><?=$post->getUser()->getNickName()?></p>
                   <p class="post-date"><?=$post->getPostDate()?></p>
+
                   <?php
                   //Si $admin est déclaré et que ce n'est pas le premier post
-                  if($admin==true && $countPost>1){
-                  echo
-                  "<a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
+                  if($admin==true && $countPost>1){ ?>
+                  <a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
                   <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
                   </a>";
-                  } ?>
+                  <?php } ?>
+                  
                   </div>
                   <p class="post-text"><?=$post->getText()?></p>
           </div>

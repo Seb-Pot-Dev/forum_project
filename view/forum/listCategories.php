@@ -11,17 +11,29 @@ if (isset($result["data"]['error'])){
 
 $categories = $result["data"]['categories'];
 
+//(Vérification si le user est admin)
+if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin')) {
+    $admin=true;
+  }
+  else{
+    $admin=false;
+  }
 ?>
 
 <h3>Liste des categories</h3>
 
 <?php
-// TO BE CONTINUED 
-// if ($_SESSION["user"]->getRole()=="Admin") {
-//     echo <form action="index.php?ctrl=topic&action=createNewCategory" method="post">;
-    
-// }
+if($admin){
+?>
+    <form class="form-add-category" action="index.php?ctrl=category&action=addNewCategory" method="post">
+        <label for="categoryName">Nouvelle catégorie :</label>
+        <input type="text" name="categoryName" id="categoryName"></input>
 
+        <input type="submit" name="submit" id="submit" value ="Créer la catégorie">
+    </form>
+    
+<?php }
+  
 if($categories){?>
 
 <table>
@@ -33,18 +45,19 @@ if($categories){?>
 
     <tbody>
     <?php
-foreach($categories as $category){
+foreach ($categories as $category) {
     ?>
     <tr>
         <td><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
     </tr>
     <?php
 }
-};
-?>
+
+    ?>
     </tbody>
 </table>
 <?php
+}
 if(isset($error)){
     echo "<p>".$error."</p>";}
 ?>

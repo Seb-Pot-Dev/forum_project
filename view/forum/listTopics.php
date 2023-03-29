@@ -18,15 +18,14 @@ if(isset($result["data"]['successDelete'])){
 if(isset($result["data"]['errorDelete'])){
     $errorDelete = $result["data"]['errorDelete'];
 }
-//Vérification si le user est admin
-if(isset($_SESSION["user"])){
-if ($_SESSION["user"]->getRole()=='admin') {
+//(Vérification si le user est défini) ET (qu'il est admin OU modérateur)
+if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getRole()=='moderator')) {
     $admin=true;
-}
-else{
+  }
+  else{
     $admin=false;
-}
-}
+  }
+
 
 ?>
 

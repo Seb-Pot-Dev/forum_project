@@ -24,7 +24,26 @@ class CategoryController extends AbstractController implements ControllerInterfa
     
     }
 
-    
+    public function addNewCategory(){
+        //Si l'utilisateur en session est bien admin
+        if(isset($_SESSION["user"]) && $_SESSION["user"]->getRole()=="admin"){
+            $categoryManager = new CategoryManager;
+            //Si le formulaire est soumis
+            if (isset($_POST["submit"])){
+                //Si le champ categoryName est rempli
+                if (isset($_POST["categoryName"])){
+                    //On filtre les entrées
+                    $categoryName= filter_input(INPUT_POST, "categoryName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    //On ajoute la catégorie en bdd
+                    $categoryManager->add(["categoryName" => $categoryName]);
+
+                    //redirection
+                    $this->redirectTo('category', 'index');
+                }
+            }
+        }
+    }
 
 }
 ?>

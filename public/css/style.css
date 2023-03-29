@@ -194,3 +194,11 @@ tr:nth-child(even){
   display: flex;
   justify-content: space-around;
 }
+/*----------FORMS---------------*/
+.form-add-category{
+  display: flex;
+  flex-direction: column;
+  width: 18%;
+
+
+}
