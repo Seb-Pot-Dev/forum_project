@@ -14,10 +14,14 @@ $topic = $result["data"]['topic'];
 if (isset($result["data"]['error'])){
 $error = $result["data"]['error'];
 }
-//Vérification si le user est admin OU que c'est son topic
-$OwnerTopicId = $topic->getUser()->getId();
-  if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getId()==$OwnerTopicId){
+  //Récupération du userId
+  $OwnerTopicId = $topic->getUser()->getId();
+  //Vérification si le user est admin
+  if($_SESSION["user"]->getRole()=='admin'){
     $admin = true;
+  }
+  else{
+    $admin=false;
   }
                 
 ?>
@@ -48,10 +52,10 @@ $OwnerTopicId = $topic->getUser()->getId();
                   <p class="post-date"><?=$post->getPostDate()?></p>
                   <?php
                   //Si $admin est déclaré et que ce n'est pas le premier post
-                  if($admin=true && $countPost>1){
+                  if($admin==true && $countPost>1){
                   echo
                   "<a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
-                  <p>Suppr</p>
+                  <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
                   </a>";
                   } ?>
                   </div>

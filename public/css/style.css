@@ -186,3 +186,7 @@ tr:nth-child(even){
   .form-add-topic input[type="submit"]{
   max-width: fit-content;
   }
+/*------------ICONS------------*/
+.icon-admin i{
+  color: var(--light-blue);
+}

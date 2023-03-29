@@ -59,12 +59,13 @@ class TopicController extends AbstractController implements ControllerInterface
     public function addTopic($id)
     {
     //$id = ID de la CATEGORY
-        //Définition des variables
-        $topicManager = new TopicManager();
-        $postManager = new PostManager();
-        // $postManager=new Postmanager();
+    //Définition des variables
+    $topicManager = new TopicManager();
+    $postManager = new PostManager();
+    // $postManager=new Postmanager();
 
-        //Si le form est soumis 
+    if (isset($_SESSION["user"])) {
+        //Si le form est soumis
         if (isset($_POST["submit"])) {
             //et que les POST voulus sont définis && non vides
             if (
@@ -76,29 +77,29 @@ class TopicController extends AbstractController implements ControllerInterface
                 $topicName = filter_input(INPUT_POST, "topicName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                    //user  recup les données de session/login
-                    // var_dump($_SESSION["user"]);die;
-                    $user = $_SESSION["user"]->getId();
-                
+                //user  recup les données de session/login
+                // var_dump($_SESSION["user"]);die;
+                $user = $_SESSION["user"]->getId();
+
                 //On utilise la méthode add du Manager qui associe les clé/valeur de l'objet(table) correspondant
-                    // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)
+                // la methode add utilise la méthode insert qui renvoie le lastInsertId (c a d le dernier id de la donnée ajouté en bdd)
                 $lastIdOfTopicAddedToDbb = $topicManager->add(["topicName" => $topicName, "user_id" => $user, "category_id" => $id]);
-                
+
                 //ajout en BDD
                 $postManager->add(["topic_id"=>$lastIdOfTopicAddedToDbb, "user_id" => $user, "text" => $text]);
 
                 //redirectTo permet de rediriger vers l'URL (controller, action, id)
                 $this->redirectTo('topic', 'listTopicsByCategory', $id);
-            }
-            else {
+            } else {
                 return [
                     "view"=> VIEW_DIR . "forum/addTopic.php",
                     "data" => [
                         "error" => "Echec de la création du topic"
                     ]
-                ];            
+                ];
             }
         }
+    }
     }
     public function deleteTopic($id){
         //Définition des variables
@@ -107,14 +108,40 @@ class TopicController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById($id);
         $idCategory = $topic->getCategory()->getId();
 
+        //Si le user en session est admin OU que le user en session est celui qui a créer le topic
         if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getId==$topic->getUser())
         {
             $postManager->deletePostsByTopic($id);
+
             $topicManager->delete($id);
+
             $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
         }
         else{
             $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
         }
     }
+    public function lockTopic($id){
+
+        //Définition des variables
+        $topicManager = new TopicManager();
+            //$topic = $id du topic
+            $topic = $topicManager->findOneById($id);
+            //$idCategory = $id de la categorie du topic 
+            $idCategory = $topic->getCategory()->getId();
+
+        //si le user est admin
+        if($_SESSION["user"]->getRole()=='admin'){
+            //on utilise la fonction du TopicManager pour lock le topic
+            $topicManager->lockTopicById($id);
+            //redirection vers la liste de categorie du topic lock 
+            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
+        }
+        else{
+            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
+        }
+
+
+        }
+    
 }

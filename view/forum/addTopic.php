@@ -1,4 +1,9 @@
-<?php $categorie = $result["data"]['categorie'];?>
+<?php if(isset($result["data"]['categorie'])){
+    $categorie = $result["data"]['categorie'];
+}
+if(isset($_SESSION["user"])){
+?>
+
 
 <!--TITRE-->
 <h3>Ajoutez un topic a la catégorie "<?=$categorie->getCategoryName()?>"</h3>
@@ -15,4 +20,10 @@
     <input class="button-dark" type="submit" name="submit" id="submit" value="Créer le topic">
 
 </form>
-<!--FIN FORM-->
+<?php 
+}
+else{
+?>
+<a href="index.php?ctrl=security&action=login">Veuillez vous connectez</a>
+
+<?php } ?>

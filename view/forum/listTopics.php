@@ -19,8 +19,10 @@ if(isset($result["data"]['errorDelete'])){
     $errorDelete = $result["data"]['errorDelete'];
 }
 //Vérification si le user est admin
-if($_SESSION["user"]->getRole()=='admin'){
+if(isset($_SESSION["user"])){
+if ($_SESSION["user"]->getRole()=='admin') {
     $admin=true;
+}
 }
 
 ?>
@@ -66,7 +68,9 @@ if (isset($topics) ){ ?>
                 if(isset($admin)){
                     echo 
                     "<td>
-                        <a href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'>Suppr</a> 
+                        <a href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'><i class='fa-solid fa-trash'></i></a> 
+                        <a href='index.php?ctrl=topic&action=lockTopic&id=".$topic->getId()."'><i class='fa-solid fa-lock'></i></i></a> 
+
                     </td>";
                 }
                 ?>
