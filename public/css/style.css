@@ -193,6 +193,7 @@ tr:nth-child(even){
 .container-icon-admin{
   display: flex;
   justify-content: space-around;
+  color: var(--light-blue);
 }
 /*----------FORMS---------------*/
 .form-add-category{

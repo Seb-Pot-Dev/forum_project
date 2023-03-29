@@ -48,6 +48,7 @@ if (isset($topics) ){ ?>
                 <th>Categorie: <?= $categorie->getCategoryName() ?>
                 </th>
                 <th>Utilisateur</th>
+                <th>Etat</th>
                 <?php
                 //Si $admin est déclaré
                 if($admin){
@@ -65,6 +66,16 @@ if (isset($topics) ){ ?>
             <tr>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
                 <td><?=$topic->getUser()->getNickName()?></td>
+                
+                <td class="container-icon-admin">
+                <?php 
+                //Etat du topic
+                if ($topic->getLocked()==1){ ?>
+                <i class="fa-solid fa-lock"></i>
+                <?php }else{ ?>
+                <i class="fa-solid fa-lock-open"></i>
+                <?php }?>
+                </td>
                 <?php
                 //Si $admin est déclaré
                 if($admin){
