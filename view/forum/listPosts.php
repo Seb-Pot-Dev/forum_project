@@ -56,9 +56,9 @@ else{
                   if($admin==true && $countPost>1){ ?>
                   <a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
                   <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
-                  </a>";
+                  </a>
                   <?php } ?>
-                  
+
                   </div>
                   <p class="post-text"><?=$post->getText()?></p>
           </div>
@@ -74,7 +74,9 @@ else{
 if(isset($error)){
   echo "<p>".$error."</p>";
 }
-?>
+//Si le topic n'est pas locked 
+if ($topic->getLocked()==0) {
+    ?>
     <!-- FORMULAIRE DE REPONSE -->
     <form class="form-add-topic" action="index.php?ctrl=post&action=addPostByTopic&id=<?= $topic->getId() ?>" method="POST">
       
@@ -85,3 +87,4 @@ if(isset($error)){
     
   </form>
 </div>
+<?php } ?>
