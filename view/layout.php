@@ -64,11 +64,11 @@
             </header>
             
             <main id="forum">
-                <div class="pylone-gauche"></div>
+                <div class="pylone-gauche"></div><!--Pylone gauche du temple-->
                 <div class="content">
                     <?= $page ?>
                 </div>
-                <div class="pylone-droite"></div>
+                <div class="pylone-droite"></div><!--Pylone droite du temple-->
             </main>
         </div>
         <footer>

@@ -54,7 +54,7 @@ else{
                   <?php
                   //Si $admin est déclaré et que ce n'est pas le premier post
                   if($admin==true && $countPost>1){ ?>
-                  <a href='index.php?ctrl=post&action=deletePost&id=".$post->getId()."'>
+                  <a href='index.php?ctrl=post&action=deletePost&id=<?=$post->getId()?>'>
                   <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
                   </a>
                   <?php } ?>
@@ -86,5 +86,5 @@ if ($topic->getLocked()==0) {
     <input type="submit" name="submit" id="submit" value="Répondre">
     
   </form>
+  <?php } ?>
 </div>
-<?php } ?>
