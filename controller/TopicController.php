@@ -132,14 +132,20 @@ class TopicController extends AbstractController implements ControllerInterface
 
         //si le user est admin
         if($_SESSION["user"]->getRole()=='admin'){
+            //si le topic est ouvert
+            if($topic->getLocked()==0){
             //on utilise la fonction du TopicManager pour lock le topic
             $topicManager->lockTopicById($id);
             //redirection vers la liste de categorie du topic lock 
-            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
+            }
+            //sinon si le topic est fermé
+            else{
+                //on utilise la fonction du topicManager pour unlock le topic
+            $topicManager->unlockTopicById($id);
+            }
         }
-        else{
-            $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
-        }
+    //dans les 2 cas on redirige 
+    $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
 
 
         }

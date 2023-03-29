@@ -45,8 +45,7 @@ if (isset($topics) ){ ?>
         <thead>
             <tr>
                 <!-- th CATEGORIE + th UTILISATEUR -->
-                <th>Categorie: <?= $categorie->getCategoryName() ?>
-                </th>
+                <th>Categorie: <?= $categorie->getCategoryName() ?></th>
                 <th>Utilisateur</th>
                 <th>Etat</th>
                 <?php
@@ -57,6 +56,7 @@ if (isset($topics) ){ ?>
                 }?>
             </tr>
         </thead>
+        <tbody>
         <?php
         /* FOREACH qui pour chaque ligne stockées dans $topics
         va chercher les donnés demandées par les méthodes "getId()", "getTopicName()" etc...
@@ -67,7 +67,8 @@ if (isset($topics) ){ ?>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
                 <td><?=$topic->getUser()->getNickName()?></td>
                 
-                <td class="container-icon-admin">
+                <td>
+                <div class="container-icon-admin">
                 <?php 
                 //Etat du topic
                 if ($topic->getLocked()==1){ ?>
@@ -75,15 +76,17 @@ if (isset($topics) ){ ?>
                 <?php }else{ ?>
                 <i class="fa-solid fa-lock-open"></i>
                 <?php }?>
+                </div>
                 </td>
                 <?php
-                //Si $admin est déclaré
+                //Si $admin == true
                 if($admin){
                     echo 
-                    "<td class='container-icon-admin'>
+                    "<td>
+                    <div class='container-icon-admin'>
                         <a class='icon-admin' href='index.php?ctrl=topic&action=deleteTopic&id=".$topic->getId()."'><i class='fa-solid fa-trash'></i></a> 
-                        <a class='icon-admin' href='index.php?ctrl=topic&action=lockTopic&id=".$topic->getId()."'><i class='fa-solid fa-lock'></i></i></a> 
-
+                        <a class='icon-admin' href='index.php?ctrl=topic&action=lockTopic&id=".$topic->getId()."'><i class='fa-solid fa-lock'></i></a> 
+                    </div>
                     </td>";
                 }
                 ?>

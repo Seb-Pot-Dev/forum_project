@@ -64,11 +64,15 @@
             </header>
             
             <main id="forum">
-                <?= $page ?>
+                <div class="pylone-gauche"></div>
+                <div class="content">
+                    <?= $page ?>
+                </div>
+                <div class="pylone-droite"></div>
             </main>
         </div>
         <footer>
-            <p>&copy; 2023 - La place - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2023 - La place - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a> Affichage bugué du temple : Credit Florian Jacob</p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     </div>
