@@ -14,13 +14,13 @@ if (isset($_SESSION['user'])) {
 if ($admin && ($user->getBan()==0)) {
     // var_dump("text");die; // VOIR LES PROBLEMES ICI
 ?>
-    <a href="index.php?ctrl=security&action=banUser&id=<?= $user->getId() ?>">Bannir cet utilisateur</a>
+    <a class="button-red" href="index.php?ctrl=security&action=banUser&id=<?= $user->getId() ?>">Bannir cet utilisateur</a>
 
 <?php
 }
 elseif($admin && ($user->getBan()==1)){
 ?>
-    <a href="index.php?ctrl=security&action=unbanUser&id=<?= $user->getId() ?>">Débannir cet utilisateur</a>
+    <a class ="button-green" href="index.php?ctrl=security&action=unbanUser&id=<?= $user->getId() ?>">Débannir cet utilisateur</a>
 <?php
 }
 ?>
@@ -30,12 +30,12 @@ elseif($admin && ($user->getBan()==1)){
 <p>Role : <?= $user->getRole(); ?></p>
 <p>Date d'inscription : <?= $user->getRegistrationDate(); ?></p>
 <p>Email: <?= $user->getEmail(); ?></p>
-<p>Etat du compte:
+<div style="display:flex; flex-direction:row; align-items:center;">Etat du compte:
     <?php if ($user->getBan() == 1) {
 
-        echo "banni";
+        echo "<p class='button-red'>banni</p>";
     } else {
-        echo "normal";
+        echo "<p class='button-green'>valide</p>";
     }
     ?>
-</p>
+</div>

@@ -65,7 +65,7 @@ if (isset($topics) ){ ?>
         ?>
             <tr>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
-                <td><?=$topic->getUser()->getNickName()?></td>
+                <td> <a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$topic->getUser()->getId()?>"><?=$topic->getUser()->getNickName()?></a></td>
                 
                 <td>
                 <div class="container-icon-admin">

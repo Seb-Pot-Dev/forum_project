@@ -240,24 +240,31 @@ class SecurityController extends AbstractController implements ControllerInterfa
         }
     }
     public function banUser($id){
-        $userManager = new UserManager;
+    // Si l'utilisateur en session est admin ou moderator
+    if ($_SESSION['user']->getRole()==('admin' || 'moderator')) {
+        $userManager = new UserManager();
         //récupération du Nickname du user
         $userNickname = $userManager->findOneById($id)->getNickname();
         //utilisation de la fonction pour ban en fonction de l'ID
         $userManager->banUserById($id);
-
-         ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été banni"]];
+        //on rempli le tableau avec le msg de succès
+        ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été banni"]];
+        //redirection vers la page de l'utilisteur banni
         $this->redirectTo('security', 'viewOtherUserProfile', $id);
+        }
     }
     public function unbanUser($id){
-        $userManager = new UserManager;
+    // Si l'utilisateur en session est admin ou moderator
+    if ($_SESSION['user']->getRole()==('admin' || 'moderator')) {
+        $userManager = new UserManager();
         //récupération du Nickname du user
         $userNickname = $userManager->findOneById($id)->getNickname();
         //utilisation de la fonction pour ban en fonction de l'ID
         $userManager->unbanUserById($id);
-
-        ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été débanni"]];
-        $this->redirectTo('security', 'viewOtherUserProfile', $id);
-
+    //on rempli le tableau avec le msg de succès
+    ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été débanni"]];
+    //redirection vers la page de l'utilisteur débanni
+    $this->redirectTo('security', 'viewOtherUserProfile', $id);
+        }
     }
 }
