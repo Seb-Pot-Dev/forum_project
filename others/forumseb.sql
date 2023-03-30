@@ -21,15 +21,14 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id_category` int(11) NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Listage des données de la table forumseb.category : ~4 rows (environ)
+-- Listage des données de la table forumseb.category : ~3 rows (environ)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id_category`, `categoryName`) VALUES
 	(1, 'Jeu-vidéo'),
 	(2, 'Musique'),
-	(3, 'Informatique'),
-	(4, 'Nature');
+	(3, 'Informatique');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 -- Listage de la structure de la table forumseb. post
@@ -44,12 +43,12 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `FK_post_user` (`user_id`),
   CONSTRAINT `FK_post_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
   CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Listage des données de la table forumseb.post : ~16 rows (environ)
+-- Listage des données de la table forumseb.post : ~18 rows (environ)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 INSERT INTO `post` (`id_post`, `postDate`, `topic_id`, `user_id`, `text`) VALUES
-	(4, '2023-03-29 09:51:02', 14, 6, 'ff'),
+	(4, '2023-03-29 09:51:02', 14, 6, 'BLATEST'),
 	(5, '2023-03-29 09:51:14', 15, 6, 'olol\r\n'),
 	(6, '2023-03-29 09:51:28', 16, 6, 'Oui oui'),
 	(7, '2023-03-29 09:54:10', 16, 6, 'yuytu'),
@@ -64,7 +63,10 @@ INSERT INTO `post` (`id_post`, `postDate`, `topic_id`, `user_id`, `text`) VALUES
 	(20, '2023-03-29 15:20:33', 26, 6, 'azeafdffd'),
 	(21, '2023-03-29 15:20:55', 27, 6, 'zaezaeazdf'),
 	(22, '2023-03-29 15:20:59', 28, 6, 'dfdfds'),
-	(23, '2023-03-29 15:21:04', 29, 6, 'dfsfdf');
+	(23, '2023-03-29 15:21:04', 29, 6, 'dfsfdf'),
+	(24, '2023-03-30 09:10:22', 28, 5, 'Aj '),
+	(27, '2023-03-30 10:56:07', 14, 6, 'yiyipppp'),
+	(29, '2023-03-30 14:28:12', 31, 8, 'ezz');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 
 -- Listage de la structure de la table forumseb. topic
@@ -80,12 +82,12 @@ CREATE TABLE IF NOT EXISTS `topic` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id_category`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- Listage des données de la table forumseb.topic : ~13 rows (environ)
+-- Listage des données de la table forumseb.topic : ~15 rows (environ)
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
 INSERT INTO `topic` (`locked`, `id_topic`, `topicName`, `topicDate`, `user_id`, `category_id`) VALUES
-	(1, 14, 'et toa a koa tu jouei', '2023-03-29 09:51:02', 6, 1),
+	(0, 14, 'et toa a koa tu jouei', '2023-03-29 09:51:02', 6, 1),
 	(0, 15, 'la musik', '2023-03-29 09:51:14', 6, 2),
 	(1, 16, 'j&#039;m bien les claviers', '2023-03-29 09:51:28', 6, 3),
 	(0, 17, 'ez', '2023-03-29 10:04:16', 6, 3),
@@ -97,7 +99,8 @@ INSERT INTO `topic` (`locked`, `id_topic`, `topicName`, `topicDate`, `user_id`, 
 	(1, 26, 'azeazsdf', '2023-03-29 15:20:33', 6, 3),
 	(1, 27, 'eazeaze', '2023-03-29 15:20:55', 6, 3),
 	(0, 28, 'aaze', '2023-03-29 15:20:59', 6, 3),
-	(0, 29, 'eazreara', '2023-03-29 15:21:04', 6, 3);
+	(0, 29, 'eazreara', '2023-03-29 15:21:04', 6, 3),
+	(0, 31, 'bonjour', '2023-03-30 14:28:12', 8, 3);
 /*!40000 ALTER TABLE `topic` ENABLE KEYS */;
 
 -- Listage de la structure de la table forumseb. user
@@ -117,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id_user`, `nickname`, `email`, `password`, `registrationDate`, `role`, `ban`) VALUES
 	(5, 'ChrisHaffey', 'chrishaffey@gmail.com', '$2y$10$Dl2lx9HV87Jih6MRRjpg8uZnF1gJ317TwtXxQheWOgNj/7AMaziMC', '2023-03-29 09:04:23', 'moderator', 0),
 	(6, 'Edouard_Cislak', 'edouardcislak@gmail.com', '$2y$10$GG9CHtOoGRdhl/KTKy/Bb.7CMLoAV.K4hx0fktCHpTCNNRAfnKSrG', '2023-03-29 09:04:44', 'admin', 0),
-	(7, 'JeanEudeDu12', 'jeaneudedu12@gmail.com', '$2y$10$gtHyLDL0KwiEmAF.9B1HdexzWMMQVjbEQ2d3BclZsqStGF2r0Snm2', '2023-03-29 09:05:01', 'normal', 1),
+	(7, 'JeanEudeDu12', 'jeaneudedu12@gmail.com', '$2y$10$gtHyLDL0KwiEmAF.9B1HdexzWMMQVjbEQ2d3BclZsqStGF2r0Snm2', '2023-03-29 09:05:01', 'normal', 0),
 	(8, 'PseudOsef', 'pseudosef@gmail.com', '$2y$10$0hz4fZsDvl57OFCtVX5zJOe9N53bXamKmZMKKuJi67WAMO8iXaa4C', '2023-03-29 09:05:18', 'normal', 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
