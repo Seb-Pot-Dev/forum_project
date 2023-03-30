@@ -32,7 +32,8 @@ class PostController extends AbstractController implements ControllerInterface
         return [
             "view" => VIEW_DIR . "forum/listPosts.php",
             "data" => [
-                "posts" => $postManager->findPostByTopic($id), "topic" => $topicManager->findOneById($id)
+                "posts" => $postManager->findPostByTopic($id), 
+                "topic" => $topicManager->findOneById($id)
             ]
         ];
     }
@@ -82,13 +83,55 @@ class PostController extends AbstractController implements ControllerInterface
         //déclaration de l'id du topic du post en question
         $topicId = $post->getTopic()->getId();
 
-        //Si le rôle du user en session est Admin, ou que c'est son topic,
-        if ($_SESSION["user"]->getRole() == 'admin' || $_SESSION["user"]->getId() == $post->getUser()->getId()) {
+        //Si le rôle du user en session est admin OU moderator
+        if ($_SESSION["user"]->getRole() == 'admin' || $_SESSION["user"]->getRole() == 'moderator') {
 
             $postManager->delete($id);
 
             //redirection vers le même topic
             $this->redirectTo('post', 'listPostByTopic', $topicId);
         }
+    }
+
+    public function linkToModifyPost($id){
+    if ($_SESSION["user"]->getRole() == 'admin' || $_SESSION["user"]->getRole() == 'moderator'){
+
+        $postManager = new PostManager();
+
+        $post = $postManager->findOneById($id);
+
+        return [
+            "view" => VIEW_DIR . "forum/modifyPost.php",
+            "data" => [
+                "post" => $postManager->findOneById($id),
+            ]
+        ];
+
+        }
+        }
+    public function modifyPost($id){
+        $postManager = new PostManager;
+
+        //déclaration du $post en question
+        $post = $postManager->findOneById($id);
+        //déclaration de l'id du topic du post en question
+        $topicId = $post->getTopic()->getId();
+
+        //Si le rôle du user en session est admin OU moderator
+        if ($_SESSION["user"]->getRole() == 'admin' || $_SESSION["user"]->getRole() == 'moderator') {
+
+            if(isset($_POST['submit'])){
+
+                $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                if(isset($_POST["text"]) && (!empty($_POST["text"]))){
+                    $postManager->updatePostById($id, $text);
+
+                    $this->redirectTo('post', 'listPostByTopic', $topicId);
+                }
+            }
+
+        }
+        //redirection vers le même topic
     }
 }

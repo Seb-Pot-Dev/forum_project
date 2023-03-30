@@ -1,15 +1,15 @@
-<?php if(isset($result["data"]['categorie'])){
-    $categorie = $result["data"]['categorie'];
+<?php if(isset($result["data"]['category'])){
+    $category = $result["data"]['category'];
 }
 if(isset($_SESSION["user"])){
 ?>
 
 
 <!--TITRE-->
-<h3>Ajoutez un topic a la catégorie "<?=$categorie->getCategoryName()?>"</h3>
+<h3>Ajoutez un topic a la catégorie "<?=$category->getCategoryName()?>"</h3>
 
 <!--FORM-->
-<form class="form-add-topic" action="index.php?ctrl=topic&action=addTopic&id=<?= $categorie->getId() ?>" method="POST">
+<form class="form-add-topic" action="index.php?ctrl=topic&action=addTopic&id=<?= $category->getId() ?>" method="POST">
 
     <label for="topicName">Nom du topic</label>
     <input type="text" name="topicName" id="topicName">

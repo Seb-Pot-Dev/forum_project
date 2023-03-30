@@ -29,7 +29,7 @@ if($admin){
         <label for="categoryName">Nouvelle catégorie :</label>
         <input type="text" name="categoryName" id="categoryName"></input>
 
-        <input type="submit" name="submit" id="submit" value ="Créer la catégorie">
+        <input type="submit" name="submit" id="submit" value ="Créer">
     </form>
     
 <?php }
@@ -40,6 +40,7 @@ if($categories){?>
     <thead>
         <tr>
             <th>Nom des catégories</th>
+                
         </tr>
     </thead>
 
@@ -49,6 +50,7 @@ foreach ($categories as $category) {
     ?>
     <tr>
         <td><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
+            
     </tr>
     <?php
 }

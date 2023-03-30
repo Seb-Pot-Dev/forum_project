@@ -24,9 +24,22 @@ else{
 <div class="forum-container">
   <!--HEADER DU TOPIC -->
   <div class="forum-header">
+  <div class="forum-header-left">
     <h2 class="forum-category"><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$topic->getCategory()->getId()?>"><?=$topic->getCategory()->getCategoryName()?></a></h2>
     <h1 class="forum-title">/<?=$topic->getTopicName()?></h1>
   </div>
+      <div class="forum-header-right">
+      <?php if($topic->getLocked()==0){ ?>
+        <a title="Vérouiller le sujet" class='icon-admin' href='index.php?ctrl=topic&action=lockTopicFromTopic&id=<?=$topic->getId()?>'><i class='fa-solid fa-lock'></i></a>      
+      <?php }
+      else{ ?>
+        <a title="Déverouiller le sujet" class='icon-admin-green' href="index.php?ctrl=topic&action=lockTopicFromTopic&id=<?=$topic->getId()?>"><i class="fa-solid fa-lock-open"></i></a>
+      <?php }
+      if(($_SESSION["user"]->getId())==$topic->getUser()->getId()){?>
+        <a title="Supprimer le sujet" class="icon-admin-red" href="index.php?ctrl=topic&action=deleteTopic&id=<?=$topic->getId()?>"><i class='fa-solid fa-trash'></i></a>
+      <?php } ?>
+      </div>
+      </div>
     <!--LIST des POSTS DU TOPIC -->
     <div class="forum-posts">
       <?php
@@ -43,7 +56,12 @@ else{
       ?>
           <div class="forum-post-card">
               <div class="post-header">
-                  <p class="post-user"><a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getNickname()?></a></p>
+                <?php if($post->getUser()->getRole() == 'normal'){ ?>
+                  <p class="user-name">
+                <?php } elseif($post->getUser()->getRole()=='admin' || $_SESSION["user"]->getRole() == 'moderator'){ ?>
+                  <p class="user-name-red">
+                <?php } ?>
+                  <a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getNickname()?></a></p>
                   <p class="post-date"><?=$post->getPostDate()?></p>
 
                   <?php
@@ -52,7 +70,14 @@ else{
                   <a href='index.php?ctrl=post&action=deletePost&id=<?=$post->getId()?>'>
                   <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
                   </a>
-                  <?php } ?>
+                  <?php }
+
+                  //Si $admin est déclaré
+                  if($admin==true){ ?>
+                    <a href='index.php?ctrl=post&action=linkToModifyPost&id=<?=$post->getId()?>'>
+                    <p class='icon-admin'><i class="fa-regular fa-pen-to-square"></i></p>
+                    </a>
+                   <?php } ?>
 
                   </div>
                   <p class="post-text"><?=$post->getText()?></p>

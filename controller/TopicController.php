@@ -38,21 +38,22 @@ class TopicController extends AbstractController implements ControllerInterface
             "view" => VIEW_DIR . "forum/listTopics.php",
             "data" => [
                 "topics" => $topicManager->findTopicsByCategory($id),
-                "categorie" => $categoryManager->findOneById($id)
+                "category" => $categoryManager->findOneById($id)
             ]
         ];
     }
 
     // méthode pour diriger vers la page d'ajout de topic et chercher les infos sur la catégorie
     public function linkAddTopic($id){
+    if (isset($_SESSION['user'])) {
         $categoryManager = new CategoryManager();
         return [
             "view"=> VIEW_DIR . "forum/addTopic.php",
             "data" => [
-                "categorie" => $categoryManager->findOneById($id)
+                "category" => $categoryManager->findOneById($id)
             ]
         ];
-
+    }
     }
 
     // méthode pour AJOUTER un TOPIC par $id category
@@ -108,8 +109,8 @@ class TopicController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById($id);
         $idCategory = $topic->getCategory()->getId();
 
-        //Si le user en session est admin OU que le user en session est celui qui a créer le topic
-        if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getId==$topic->getUser())
+        //Si le user en session est (admin OU moderator) OU que le user en session est celui qui a créer le topic
+        if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getRole()=='moderator' || $_SESSION["user"]->getId==$topic->getUser())
         {
             $postManager->deletePostsByTopic($id);
 
@@ -121,6 +122,18 @@ class TopicController extends AbstractController implements ControllerInterface
             $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
         }
     }
+    public function deleteTopicByCategory($id){
+        //Définition des variables
+        $categoryManager = new CategoryManager;
+        $topicManager = new TopicManager;
+        $postManager = new postManager;
+
+        $topics = $topicManager->findTopicsByCategory($id);
+
+        $posts = $postManager->findPostsByTopic();
+
+
+    }
     public function lockTopic($id){
 
         //Définition des variables
@@ -130,25 +143,49 @@ class TopicController extends AbstractController implements ControllerInterface
             //$idCategory = $id de la categorie du topic 
             $idCategory = $topic->getCategory()->getId();
 
-        //si le user est admin
-        if($_SESSION["user"]->getRole()=='admin'){
+        //si le user est (admin OU moderator) OU que c'est celui qui a créer le topic
+        if($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getRole()=='moderator' || $_SESSION["user"]->getId()==$topic->getUser()){
             //si le topic est ouvert
             if($topic->getLocked()==0){
             //on utilise la fonction du TopicManager pour lock le topic
             $topicManager->lockTopicById($id);
             //redirection vers la liste de categorie du topic lock 
             }
+
             //sinon si le topic est fermé
             else{
                 //on utilise la fonction du topicManager pour unlock le topic
             $topicManager->unlockTopicById($id);
             }
         }
-    //dans les 2 cas on redirige 
+    //dans les 2 cas on redirige vers la liste de topic de la catégorie
     $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
+    }
+    public function lockTopicFromTopic($id){
 
+        //Définition des variables
+        $topicManager = new TopicManager();
+            //$topic = $id du topic
+            $topic = $topicManager->findOneById($id);
+            //$idTopic = $id du topic
+            $idTopic = $topic->getId();
+        //si le user est (admin OU moderator) OU que c'est celui qui a créer le topic
+        if($_SESSION["user"]->getRole()==('admin' || 'moderator') || $_SESSION["user"]->getId()==$topic->getUser()){
+            //si le topic est ouvert
+            if($topic->getLocked()==0){
+            //on utilise la fonction du TopicManager pour lock le topic
+            $topicManager->lockTopicById($id);
+            //redirection vers la liste de categorie du topic lock 
+            }
 
+            //sinon si le topic est fermé
+            else{
+                //on utilise la fonction du topicManager pour unlock le topic
+            $topicManager->unlockTopicById($id);
+            }
         }
-    
+    //dans les 2 cas on redirige vers la liste de topic de la catégorie
+    $this->redirectTo('post', 'listPostByTopic', $idTopic);
+    }
     
 }

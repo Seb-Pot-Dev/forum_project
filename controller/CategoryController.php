@@ -26,12 +26,12 @@ class CategoryController extends AbstractController implements ControllerInterfa
 
     public function addNewCategory(){
         //Si l'utilisateur en session est bien admin
-        if(isset($_SESSION["user"]) && $_SESSION["user"]->getRole()=="admin"){
+        if(isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=="admin")){
             $categoryManager = new CategoryManager;
             //Si le formulaire est soumis
             if (isset($_POST["submit"])){
-                //Si le champ categoryName est rempli
-                if (isset($_POST["categoryName"])){
+                //Si le champ categoryName est rempli et non vide
+                if (isset($_POST["categoryName"]) && !empty($_POST["categoryName"])){
                     //On filtre les entrées
                     $categoryName= filter_input(INPUT_POST, "categoryName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -44,6 +44,19 @@ class CategoryController extends AbstractController implements ControllerInterfa
             }
         }
     }
+    // public function deleteCategory($id){
+    //     if ($_SESSION["user"]->getRole()=="admin") {
+
+    //         $categoryManager = new CategoryManager();
+    //         $postManager = new PostManager();
+
+            
+
+    //         $categoryManager->delete($id);
+
+    //         $this->redirectTo('category');
+    //     }
+    // }
 
 }
 ?>

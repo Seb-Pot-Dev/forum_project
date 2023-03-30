@@ -14,8 +14,8 @@
     --dark-blue: #2C3E50;
     --dark-blue-hover: #132436;
     --sand: #CBB292;
-    --error: rgb(109, 46, 46); 
-    --success: #035326;
+    --error: rgb(133, 49, 49); 
+    --success: #047535;
 }
 /*----------NAV BAR-----------*/
 nav{
@@ -122,13 +122,17 @@ tr:nth-child(even){
     color: white;
     background-color: #363E49;
 }
-
+.td-admin{
+  display: flex;
+  justify-content: center;
+}
 
 
 /*------listTopics----------*/
 .listTopics-header{
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /*------listPost-----*/
@@ -139,17 +143,33 @@ tr:nth-child(even){
     font-family: 'Inter', sans-serif;
   }
   
-  .forum-header {
+  .forum-header{
     display: flex;
     align-items: center;
     margin-bottom: 1%;
+    justify-content: space-between;
   }
-  
-  .forum-category, .forum-title {
+  .forum-header-left{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .forum-header-right{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .forum-category a{
+    color: var(--sand); 
+    text-decoration: none;
     font-size: 18px;
   }
-  
-  
+  .forum-title{
+    font-size: 18px;
+    color: var(--light-blue-hover);
+
+  }
   .forum-post-card {
     background-color: #363636;
     color: white;
@@ -169,10 +189,19 @@ tr:nth-child(even){
     align-items: center;
     margin-bottom: 10px;
   }
-  .post-user {
+  .user-name a{
     font-size: 16px;
     font-weight: bold;
     margin-right: 10px;
+    text-decoration: none;
+    color: var(--light-blue);
+  }
+  .user-name-red a{
+    font-size: 16px;
+    font-weight: bolder;
+    margin-right: 10px;
+    text-decoration: none;
+    color: var(--error);
   }
   .post-date {
     font-size: 14px;
@@ -213,6 +242,12 @@ tr:nth-child(even){
 /*------------ICONS------------*/
 .icon-admin i{
   color: var(--light-blue);
+}
+.icon-admin-red i{
+  color: var(--error);
+}
+.icon-admin-green i{
+  color: var(--success);
 }
 .container-icon-admin{
   display: flex;
@@ -312,5 +347,5 @@ footer{
 
     height: 90px;
   }
- 
+}
   
