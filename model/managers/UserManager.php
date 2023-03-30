@@ -50,5 +50,15 @@
         return DAO::update($sql, ['id' => $id]);
         }
         
+        public function unbanUserById($id){
+            parent::connect();
+
+        $sql =  "UPDATE " . $this->tableName .
+            " SET ban = 0 
+             WHERE id_user = :id";
+
+
+        return DAO::update($sql, ['id' => $id]);
+        }
     }
     ?>

@@ -11,11 +11,16 @@ if (isset($_SESSION['user'])) {
     }
 }
 
-if ($admin) {
+if ($admin && ($user->getBan()==0)) {
     // var_dump("text");die; // VOIR LES PROBLEMES ICI
 ?>
     <a href="index.php?ctrl=security&action=banUser&id=<?= $user->getId() ?>">Bannir cet utilisateur</a>
 
+<?php
+}
+elseif($admin && ($user->getBan()==1)){
+?>
+    <a href="index.php?ctrl=security&action=unbanUser&id=<?= $user->getId() ?>">Débannir cet utilisateur</a>
 <?php
 }
 ?>

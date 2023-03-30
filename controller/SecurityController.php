@@ -246,13 +246,18 @@ class SecurityController extends AbstractController implements ControllerInterfa
         //utilisation de la fonction pour ban en fonction de l'ID
         $userManager->banUserById($id);
 
-        return [
-            "view" => VIEW_DIR. "forum/listTopics.php", //créer une vue Admin qui recense tout les utilisateurs bannis
-            "data" => [
-                "banSuccess" => "L'utilisateur".$userNickname."a été banni"
-            ]
-        ];
+         ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été banni"]];
+        $this->redirectTo('security', 'viewOtherUserProfile', $id);
+    }
+    public function unbanUser($id){
+        $userManager = new UserManager;
+        //récupération du Nickname du user
+        $userNickname = $userManager->findOneById($id)->getNickname();
+        //utilisation de la fonction pour ban en fonction de l'ID
+        $userManager->unbanUserById($id);
 
-        
+        ["data" => ["banSuccess" => "L'utilisateur".$userNickname."a été débanni"]];
+        $this->redirectTo('security', 'viewOtherUserProfile', $id);
+
     }
 }
