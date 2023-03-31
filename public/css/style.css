@@ -242,6 +242,7 @@ tr:nth-child(even) {
   align-items: flex-end;
   justify-content: space-between;
 }
+
 .forum-category a {
   color: var(--sand);
   text-decoration: none;
