@@ -21,7 +21,7 @@ else{
                 
 ?>
 <!-- CONTAINER PRINCIPAL DU TOPIC -->
-<div class="forum-container">
+<div class="post-container">
   <!--HEADER DU TOPIC -->
   <div class="forum-header">
   <div class="forum-header-left">
@@ -56,6 +56,7 @@ else{
       ?>
           <div class="forum-post-card">
               <div class="post-header">
+                <div class="post-header-left">
                 <?php if($post->getUser()->getRole() == 'normal'){ ?>
                   <p class="user-name">
                 <?php } elseif($post->getUser()->getRole()=='admin' || $_SESSION["user"]->getRole() == 'moderator'){ ?>
@@ -63,7 +64,8 @@ else{
                 <?php } ?>
                   <a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getNickname()?></a></p>
                   <p class="post-date"><?=$post->getPostDate()?></p>
-
+                  </div>
+                  <div class="post-header-right">
                   <?php
                   //Si $admin est déclaré et que ce n'est pas le premier post
                   if($admin==true && $countPost>1){ ?>
@@ -79,6 +81,7 @@ else{
                     </a>
                    <?php } ?>
 
+                  </div>
                   </div>
                   <p class="post-text"><?=$post->getText()?></p>
           </div>

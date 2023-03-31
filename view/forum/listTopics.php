@@ -31,7 +31,7 @@ if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESS
 ?>
 
 <!-- HEADER de listTopics-->
-<div class="listTopics-header">
+<div class="header-try">
     <a href="index.php?ctrl=category" class="button-red">Retour a la liste des catégories</a>
     <h3>Catégorie : <?= $category->getCategoryName() ?></h3>
     <a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $category->getId() ?>">NOUVEAU TOPIC</a>
@@ -43,12 +43,13 @@ if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESS
 //DEBUT CONDITION si $topics est défini
 if (isset($topics) ){ ?>
     <!-- DEBUT de la TABLE -->
+    <div class="border-table">
     <table>
         <thead>
             <tr>
                 <!-- th CATEGORIE + th UTILISATEUR -->
-                <th>Categorie: <?= $category->getCategoryName() ?></th>
-                <th>Utilisateur</th>
+                <th>Titre</th>
+                <th>Auteur</th>
                 <th>Etat</th>
                 <th>Création</th>
                 <th>NB</th>
@@ -80,10 +81,10 @@ if (isset($topics) ){ ?>
                     </p>
 
                 </td>
+                <?php //Etat du topic?>
                 <td>
                 <div class="container-icon-admin">
                 <?php 
-                //Etat du topic
                 if ($topic->getLocked()==1){ ?>
                 <div class="icon-admin-red"><i class="fa-solid fa-lock"></i></div>
                 <?php }else{ ?>
@@ -113,6 +114,7 @@ if (isset($topics) ){ ?>
     ?>
     </tbody>
 </table>
+</div>
 <!--FIN de la TABLE-->
 <?php
 if(isset($successDelete)){

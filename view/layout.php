@@ -72,10 +72,10 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2023 - La place - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a> Affichage bugué du temple : Credit Florian Jacob</p>
+            <p>&copy; 2023 - La place - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
-    </div>
+    
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -125,5 +125,6 @@
             )
         })*/
     </script>
+    </div>
 </body>
 </html>

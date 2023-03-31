@@ -19,27 +19,27 @@ if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin')) {
     $admin=false;
   }
 ?>
-
+<div class="header-try">
 <h3>Liste des categories</h3>
 
 <?php
 if($admin){
 ?>
-    <form class="form-add-category" action="index.php?ctrl=category&action=addNewCategory" method="post">
+    <form  action="index.php?ctrl=category&action=addNewCategory" method="post">
         <label for="categoryName">Nouvelle catégorie :</label>
         <input type="text" name="categoryName" id="categoryName"></input>
 
         <input type="submit" name="submit" id="submit" value ="Créer">
     </form>
-    
+</div>   
 <?php }
   
 if($categories){?>
-
-<table>
+<div class="border-table">
+<table class="list-categories">
     <thead>
         <tr>
-            <th>Nom des catégories</th>
+            <th>Liste des catégories</th>
                 
         </tr>
     </thead>
@@ -58,6 +58,7 @@ foreach ($categories as $category) {
     ?>
     </tbody>
 </table>
+</div>
 <?php
 }
 if(isset($error)){
