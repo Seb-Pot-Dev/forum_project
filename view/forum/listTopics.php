@@ -18,6 +18,7 @@ if(isset($result["data"]['successDelete'])){
 if(isset($result["data"]['errorDelete'])){
     $errorDelete = $result["data"]['errorDelete'];
 }
+
 //(Vérification si le user est défini) ET (qu'il est admin OU modérateur)
 if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESSION["user"]->getRole()=='moderator')) {
     $admin=true;
@@ -49,6 +50,9 @@ if (isset($topics) ){ ?>
                 <th>Categorie: <?= $category->getCategoryName() ?></th>
                 <th>Utilisateur</th>
                 <th>Etat</th>
+                <th>Création</th>
+                <th>NB</th>
+                <th>Dernier MSG</th>
                 <?php
                 //Si $admin est déclaré
                 if($admin){
@@ -74,6 +78,8 @@ if (isset($topics) ){ ?>
                     <?php } ?>    
                 <a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$topic->getUser()->getId()?>"><?=$topic->getUser()->getNickName()?></a></td>
                     </p>
+
+                </td>
                 <td>
                 <div class="container-icon-admin">
                 <?php 
@@ -85,6 +91,9 @@ if (isset($topics) ){ ?>
                 <?php }?>
                 </div>
                 </td>
+                <td><?=$topic->getFormattedTopicDate()?></td>
+                <td><?=$topic->getCountPost()?></td>
+                <td><?=$topic->getLastPostDate()?></td>
                 <?php
                 //Si $admin == true
                 if($admin){ ?>

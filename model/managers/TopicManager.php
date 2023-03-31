@@ -21,11 +21,17 @@ class TopicManager extends Manager
     {
         parent::connect();
 
-        $sql = "SELECT *
-                        FROM " . $this->tableName . " a
-                        WHERE a.category_id = :id
-                        ";
+        /*Les sous-requette SELECT permettent de selectionner la 'date du dernier post' & 'le nb de post' pour chaque TOPIC 
+        trouvés dans le SELECT principal  -> pas besoin de inner join*/
+        $sql = "SELECT t.*, DATE_FORMAT(topicDate, '%d/%m/%Y %H:%i') AS formattedTopicDate,
+                DATE_FORMAT((SELECT MAX(postDate) FROM post WHERE topic_id = t.id_topic), '%d/%m/%Y %H:%i') AS lastPostDate,
+                (SELECT COUNT(*) FROM post WHERE topic_id = t.id_topic) AS countPost 
+                FROM topic t 
+                WHERE t.category_id = :id
+                ORDER BY lastPostDate DESC
+                ";
 
+  
         return $this->getMultipleResults(
             DAO::select($sql, ['id' => $id], true),
             $this->className

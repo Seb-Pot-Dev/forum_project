@@ -33,12 +33,13 @@ class TopicController extends AbstractController implements ControllerInterface
 
         $topicManager = new TopicManager();
         $categoryManager = new CategoryManager();
+        $postManager = new PostManager();
 
         return [
             "view" => VIEW_DIR . "forum/listTopics.php",
             "data" => [
                 "topics" => $topicManager->findTopicsByCategory($id),
-                "category" => $categoryManager->findOneById($id)
+                "category" => $categoryManager->findOneById($id),
             ]
         ];
     }
@@ -121,18 +122,6 @@ class TopicController extends AbstractController implements ControllerInterface
         else{
             $this->redirectTo('topic', 'listTopicsByCategory', $idCategory);
         }
-    }
-    public function deleteTopicByCategory($id){
-        //Définition des variables
-        $categoryManager = new CategoryManager;
-        $topicManager = new TopicManager;
-        $postManager = new postManager;
-
-        $topics = $topicManager->findTopicsByCategory($id);
-
-        $posts = $postManager->findPostsByTopic();
-
-
     }
     public function lockTopic($id){
 

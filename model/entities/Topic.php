@@ -12,6 +12,9 @@
         private $locked;
         private $user;
         private $category;
+        private $lastPostDate;
+        private $countPost;
+        private $formattedTopicDate;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -115,5 +118,65 @@
                 return $this;
         }
 
+
+        /**
+         * Get the value of lastPostDate
+         */ 
+        public function getLastPostDate()
+        {
+                return $this->lastPostDate;
+        }
+
+        /**
+         * Set the value of lastPostDate
+         *
+         * @return  self
+         */ 
+        public function setLastPostDate($lastPostDate)
+        {
+                $this->lastPostDate = $lastPostDate;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of countPost
+         */ 
+        public function getCountPost()
+        {
+                return $this->countPost;
+        }
+
+        /**
+         * Set the value of countPost
+         *
+         * @return  self
+         */ 
+        public function setCountPost($countPost)
+        {
+                $this->countPost = $countPost;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of formattedTopicDate
+         */ 
+        public function getFormattedTopicDate()
+        {
+                return $this->formattedTopicDate;
+        }
+
+        /**
+         * Set the value of formattedTopicDate
+         *
+         * @return  self
+         */ 
+        public function setFormattedTopicDate($formattedTopicDate)
+        {
+                $this->formattedTopicDate = $formattedTopicDate;
+
+                return $this;
+        }
     }
 ?>
