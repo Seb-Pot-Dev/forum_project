@@ -35,7 +35,7 @@ else{
       else{ ?>
         <a title="Déverouiller le sujet" class='icon-admin-green' href="index.php?ctrl=topic&action=lockTopicFromTopic&id=<?=$topic->getId()?>"><i class="fa-solid fa-lock-open"></i></a>
       <?php }
-      if(($_SESSION["user"]->getId())==$topic->getUser()->getId()){?>
+      if((isset($_SESSION["user"]) && $_SESSION["user"]->getId())==$topic->getUser()->getId()){?>
         <a title="Supprimer le sujet" class="icon-admin-red" href="index.php?ctrl=topic&action=deleteTopic&id=<?=$topic->getId()?>"><i class='fa-solid fa-trash'></i></a>
       <?php } ?>
       </div>
