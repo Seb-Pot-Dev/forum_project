@@ -201,6 +201,7 @@ tr:nth-child(even) {
   display: flex;
   justify-content:space-between;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   height: auto;
   /* background-color: var(--light-blue); */
@@ -252,6 +253,7 @@ tr:nth-child(even) {
   font-size: 18px;
   color: var(--light-blue-hover);
 }
+/*--------POST-CARD-----------*/
 .forum-post-card {
   background-color: #363636;
   color: white;
@@ -265,6 +267,25 @@ tr:nth-child(even) {
 }
 .forum-post-card:nth-child(even) {
   background-color: #363e49;
+}
+/*-------POST-CARD-MINI---------*/
+.forum-post-card-mini {
+  background-color: #363636;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 0 5px;
+  margin-bottom: 2px;
+}
+.forum-post-card-mini:nth-child(odd) {
+  background-color: #363636;
+}
+.forum-post-card-mini:nth-child(even) {
+  background-color: #363e49;
+}
+.post-title-mini{
+  color: var(--sand);
+  font-weight: bold;;
 }
 .post-header {
   display: flex;

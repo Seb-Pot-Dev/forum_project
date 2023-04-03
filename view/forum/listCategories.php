@@ -35,11 +35,10 @@ if($admin){
 <?php }
   
 if($categories){?>
-<div class="border-table">
 <table class="list-categories">
     <thead>
         <tr>
-            <th>Liste des catégories</th>
+            <th>Nom</th>
                 
         </tr>
     </thead>
@@ -58,7 +57,6 @@ foreach ($categories as $category) {
     ?>
     </tbody>
 </table>
-</div>
 <?php
 }
 if(isset($error)){

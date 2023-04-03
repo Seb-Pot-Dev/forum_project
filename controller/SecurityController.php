@@ -220,15 +220,19 @@ class SecurityController extends AbstractController implements ControllerInterfa
     }
     public function viewOtherUserProfile($id){
         $userManager = new UserManager;
+        $postManager = new PostManager;
             //retourne la vue correspondante et renseigne le champs "user" avec les infos du user en session
             return [
                 "view" => VIEW_DIR. "security/viewOtherUserProfile.php",
                 "data" => [
-                    "user" => $userManager->findOneById($id)
+                    "user" => $userManager->findOneById($id),
+                    "posts" => $postManager->find5lastPostsByUser($id)
                 ]
             ];
         
     }
+
+
     // -- pour se déconnecter
     public function logout(){
         //Si un utilisateur est renseigné en session
