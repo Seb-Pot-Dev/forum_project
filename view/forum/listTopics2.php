@@ -34,7 +34,7 @@ if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESS
 <div class="header-try">
     <a href="index.php?ctrl=category" class="button-red">Retour a la liste des catégories</a>
     <h3>Catégorie : <?= $category->getCategoryName() ?></h3>
-    <a class="button-light" href="index.php?ctrl=topic&action=linkAddTopic&id=<?= $category->getId() ?>">NOUVEAU TOPIC</a>
+    <a class="button-light" href="index.php?ctrl=topic&action=addTopic&id=<?= $category->getId() ?>">NOUVEAU TOPIC</a>
 </div>
 
 <!-- LIST des TOPICS -->
@@ -43,31 +43,39 @@ if (isset($_SESSION["user"]) && ($_SESSION["user"]->getRole()=='admin' || $_SESS
 //DEBUT CONDITION si $topics est défini
 if (isset($topics) ){ ?>
     <!-- DEBUT de la TABLE -->
-    <table>
-        <thead>
-            <tr>
-                <!-- th CATEGORIE + th UTILISATEUR -->
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Etat</th>
-                <th>Création</th>
-                <th>NB</th>
-                <th>Dernier MSG</th>
-                <?php
-                //Si $admin est déclaré
-                if($admin){
-                echo
-                "<th>Admin</th>";
-                }?>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="topic-container">
+            <!--Topic HEAD-->
+            <div class="topic-head">
+                    <span class="topic-subject">
+
+                    </span>
+                    <span class="topic-author">
+
+                        </span>
+                    <span class="topic-count">
+
+                    </span>
+                    <span class="topic-date">
+                        
+                        </span>
+                        <span class="topic-lastpost-date">
+                            
+                            </span>
+                        </div>
+                        <!--fin Topic HEAD-->
+                <ul class="topic-list">
         <?php
         /* FOREACH qui pour chaque ligne stockées dans $topics
         va chercher les donnés demandées par les méthodes "getId()", "getTopicName()" etc...
         */
         foreach ($topics as $topic) {
         ?>
+                    <li class="topic-line">
+
+                    </li>
+            </ul>
+        </div>
+        <tbody>
             <tr>
                 <td><a href="index.php?ctrl=post&action=listPostByTopic&id=<?= $topic->getId() ?>"><?= $topic->getTopicName() ?></a></td>
                 <td> 
@@ -114,4 +122,10 @@ if (isset($topics) ){ ?>
     </tbody>
 </table>
 <!--FIN de la TABLE-->
-
+<?php
+if(isset($successDelete)){
+    echo "<p>".$successDelete."</p>";
+}
+if(isset($errorDelete)){
+    echo "<p>".$errorDelete."</p>";
+}

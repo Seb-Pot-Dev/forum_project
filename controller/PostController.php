@@ -17,9 +17,8 @@ class PostController extends AbstractController implements ControllerInterface
 
 
         $postManager = new PostManager();
-
         return [
-            "view" => VIEW_DIR . "forum/listCategories.php",
+            "view" => VIEW_DIR . "forum/listPosts.php",
             "data" => [
                 "posts" => $postManager->findAll(["postDate", "ASC"])
             ]
@@ -61,17 +60,24 @@ class PostController extends AbstractController implements ControllerInterface
 
                 $postManager->add(["topic_id" => $id, "user_id" => $user, "text" => $text]);
 
+                //Message de succès d'ajout du msg
+                Session::addFlash('success', 'Message ajouté avec succès');
+
                 //redirectTo permet de rediriger vers l'URL (controller, action, id)
                 $this->redirectTo('post', 'listPostByTopic', $id);
             }
         } else {
+            //Ajout d'un message de succès
+            Session::addFlash('error', "Echec de l'ajout du message");
             return [
                 "view" => VIEW_DIR . "forum/listPosts.php",
                 "data" => [
-                    "posts" => $postManager->findPostByTopic($id), "topic" => $topicManager->findOneById($id),
-                    "error" => "Veuillez vous connectez afin de répondre sur un topic"
+                    "posts" => $postManager->findPostByTopic($id), 
+                    "topic" => $topicManager->findOneById($id),
                 ]
             ];
+            //redirige vers l'index du user
+            $this->redirectTo('user', 'index');
         }
     }
     public function deletePost($id)
@@ -88,6 +94,8 @@ class PostController extends AbstractController implements ControllerInterface
 
             $postManager->delete($id);
 
+            //Message de succès
+            Session::addFlash('success', "Message supprimé avec succès");
             //redirection vers le même topic
             $this->redirectTo('post', 'listPostByTopic', $topicId);
         }
@@ -126,12 +134,19 @@ class PostController extends AbstractController implements ControllerInterface
 
                 if(isset($_POST["text"]) && (!empty($_POST["text"]))){
                     $postManager->updatePostById($id, $text);
-
+                    //message de succès de modification du post
+                    Session::addFlash('success', 'Message modifié avec succès');
+                    //redirection vers le même topic
                     $this->redirectTo('post', 'listPostByTopic', $topicId);
                 }
             }
+            else{
+                //message d'echec de modification du post
+                Session::addFlash('error', 'Echec de modification du message');
+                $this->redirectTo('post', 'listPostByTopic', $topicId);
+
+            }
 
         }
-        //redirection vers le même topic
     }
 }

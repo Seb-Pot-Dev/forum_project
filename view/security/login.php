@@ -1,35 +1,12 @@
-<?php
-if (isset($result["data"]['error'])){
-    $error = $result["data"]['error'];
-};
-if(isset($result["data"]['success'])){
-    $success = $result["data"]['success'];
-};
-if(isset($result["data"]['banned'])){
-    $banned = $result["data"]['banned'];
-}
-// var_dump($error);die;
-?>
+
 
 <form class="form-add-topic" action="index.php?ctrl=security&action=login" method="post">
 
     <label for="email">Email</label>
-    <input type ="text" name="email" id="email"></input>
+    <input type ="text" name="email" id="email" required></input>
 
     <label for="password">Mot de passe</label>
-    <input type ="password" name="password" id="password"></input>
+    <input type ="password" name="password" id="password" required></input>
 
     <input class="button-dark" type="submit" name="submit" id="submit" value="Se connecter">
-    </form>
-
-<?php 
-if(isset($error)){
-    echo "<p>".$error."</p>";}
-    
-if(isset($success)){
-    echo "<p>".$success."</p>";
-    }
-if(isset($banned)){
-    echo "<p>".$banned."</p>";
-}
-;?>
+</form>

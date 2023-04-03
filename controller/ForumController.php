@@ -23,6 +23,16 @@
             ];
         
         }
+        public function linkToRules(){
+            return [
+                "view" => VIEW_DIR."forum/rules.php",
+            ];
+        }
+        public function linkToMention(){
+            return [
+                "view" => VIEW_DIR."forum/mention.php",
+            ];
+        }
         
 
         

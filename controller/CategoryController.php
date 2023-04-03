@@ -16,7 +16,8 @@ class CategoryController extends AbstractController implements ControllerInterfa
        $categoryManager = new CategoryManager();
 
         return [
-            "view" => VIEW_DIR."forum/listCategories.php",
+            // CHANGEMENT ICI ...2 
+            "view" => VIEW_DIR."forum/listCategories2.php",
             "data" => [
                 "categories" => $categoryManager->findAll(["categoryName", "DESC"])
                 ]
@@ -39,24 +40,15 @@ class CategoryController extends AbstractController implements ControllerInterfa
                     $categoryManager->add(["categoryName" => $categoryName]);
 
                     //redirection
+                    Session::addFlash('success', "La nouvelle catégorie a été correctement ajoutée.");
                     $this->redirectTo('category', 'index');
                 }
             }
+        else{
+            Session::addFlash('error', "Veuillez vous connecter avant d'ajouter une nouvelle catégorie.");
+            $this->redirectTo('category', 'index');
+        }
         }
     }
-    // public function deleteCategory($id){
-    //     if ($_SESSION["user"]->getRole()=="admin") {
-
-    //         $categoryManager = new CategoryManager();
-    //         $postManager = new PostManager();
-
-            
-
-    //         $categoryManager->delete($id);
-
-    //         $this->redirectTo('category');
-    //     }
-    // }
-
 }
 ?>

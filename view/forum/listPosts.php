@@ -29,7 +29,8 @@ else{
     <h1 class="forum-title">/<?=$topic->getTopicName()?></h1>
   </div>
       <div class="forum-header-right">
-      <?php if($topic->getLocked()==0){ ?>
+      <?php if($admin){
+      if($topic->getLocked()==0){ ?>
         <a title="Vérouiller le sujet" class='icon-admin' href='index.php?ctrl=topic&action=lockTopicFromTopic&id=<?=$topic->getId()?>'><i class='fa-solid fa-lock'></i></a>      
       <?php }
       else{ ?>
@@ -37,7 +38,7 @@ else{
       <?php }
       if((isset($_SESSION["user"]) && $_SESSION["user"]->getId())==$topic->getUser()->getId()){?>
         <a title="Supprimer le sujet" class="icon-admin-red" href="index.php?ctrl=topic&action=deleteTopic&id=<?=$topic->getId()?>"><i class='fa-solid fa-trash'></i></a>
-      <?php } ?>
+      <?php }} ?>
       </div>
       </div>
     <!--LIST des POSTS DU TOPIC -->
@@ -93,10 +94,6 @@ else{
 
     
   <?php
-//affiche un message "Veuillez vous connecter..." si aucune $_SESSION["user"] a été défini 
-if(isset($error)){
-  echo "<p>".$error."</p>";
-}
 //Si le topic n'est pas locked 
 if ($topic->getLocked()==0) {
     ?>

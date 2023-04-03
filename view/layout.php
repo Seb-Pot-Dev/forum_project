@@ -72,7 +72,7 @@
             </main>
         </div>
         <footer>
-            <p>&copy; 2023 - La place - <a href="/home/forumRules.html">Règlement du forum</a> - <a href="">Mentions légales</a></p>
+            <p>&copy; 2023 - La place - <a href="index.php?ctrl=forum&action=linkToRules">Règlement du forum</a> - <a href="index.php?ctrl=forum&action=linkToMention">Mentions légales</a></p>
             <!--<button id="ajaxbtn">Surprise en Ajax !</button> -> cliqué <span id="nbajax">0</span> fois-->
         </footer>
     

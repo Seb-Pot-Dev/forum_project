@@ -262,6 +262,22 @@ tr:nth-child(even) {
   padding: 10px;
   margin-bottom: 20px;
 }
+.forum-post-card-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #363636;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+.forum-post-card-category a{
+  text-decoration: none;
+  color: white;
+}
 .forum-post-card:nth-child(odd) {
   background-color: #363636;
 }
@@ -404,7 +420,7 @@ footer{
 }
 */
 
-/* @media screen and (max-width: 666px) {
+@media screen and (max-width: 666px) {
   .pylone-droite, .pylone-gauche{
     display: none;
 
@@ -422,4 +438,8 @@ footer{
 
     height: 90px;
   } 
-} */
+}
+
+.topic-container{
+  
+}

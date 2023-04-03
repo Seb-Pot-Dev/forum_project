@@ -1,7 +1,5 @@
 <?php
-if (isset($result["data"]['error'])){
-    $error = $result["data"]['error'];
-};
+
 // Au départ, on passe par l'index, qui va nous aiguiller vers une des methodes du controller
 // Puis si on envoie une requette a la BDD, on passera par la couche "Manager" qui
 // va renvoyer une réponse au "Controller" 
@@ -33,30 +31,18 @@ if($admin){
 <?php }
   
 if($categories){?>
-<table class="list-categories">
-    <thead>
-        <tr>
-            <th>Nom</th>
-                
-        </tr>
-    </thead>
-
-    <tbody>
     <?php
 foreach ($categories as $category) {
     ?>
-    <tr>
-        <td><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
-            
-    </tr>
+    <div class="forum-post-card-category">
+        <p><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></p>
+    </div>
     <?php
 }
 
     ?>
     </tbody>
 </table>
-<?php
-}
-?>
+<?php }?>
 
   

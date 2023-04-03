@@ -60,5 +60,16 @@
 
         return DAO::update($sql, ['id' => $id]);
         }
+
+        public function modifyPasswordByUser($id, $newPassword){
+            parent::connect();
+
+        $sql = "UPDATE " . $this->tableName . 
+            " SET password = :newPassword 
+            WHERE id_user = :id";
+
+            return DAO::update($sql, ['id' => $id, 'newPassword' => $newPassword]);
+
+        }
     }
     ?>
