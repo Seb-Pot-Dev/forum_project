@@ -154,24 +154,23 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         //message de succès
                         Session::addFlash('success', 'Mot de passe modifié avec succès');
                         //redirection
-                        $this->redirectTo('security', 'linkToModifyPassword', $id);
                     }
                 } else { //autrement le mdp est le même que l'ancien
                     Session::addFlash('error', "Le mot de passe modifié ne peut pas être le même que l'ancien");
-                    $this->redirectTo('security', 'linkToModifyPassword', $id);
+                    //redirection
                 }
             } else {
                 //message d'erreur si le mdp ne correspond pas au mdp en bdd
                 Session::addFlash('error', 'Mauvais mot de passe');
                 //redirection
-                $this->redirectTo('security', 'linkToModifyPassword', $id);
             }
         } else {
             //message d'erreur si les mdp confirm ne correspondent pas
             Session::addFlash('error', 'Les mot de passe ne correspondent pas');
             //redirection
-            $this->redirectTo('security', 'linkToModifyPassword', $id);
         }
+        //Dans tout les cas, on redirige vers la vue de modification du mdp
+        $this->redirectTo('security', 'linkToModifyPassword', $id);
     }
 
 
