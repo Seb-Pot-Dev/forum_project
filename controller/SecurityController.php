@@ -203,8 +203,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 if (!$user) {
                     //On envoie en session le message d'erreur/succès
                     Session::addFlash('error', 'Le mail utilisé ne correspond a aucun utilisateurs');
-                    //On redirige vers la vue adaptée
-                    $this->redirectTo('security', 'login');
+                    //redirection
                 }
                 //Sinon (si l'email existe)
                 else {
@@ -221,31 +220,25 @@ class SecurityController extends AbstractController implements ControllerInterfa
 
                             //On envoie en session le message d'erreur/succès
                             Session::addFlash('success', 'Connexion réussie');
-
-                            //redirige vers l'index
-                            $this->redirectTo('category', 'index');
+                            //redirection vers la vue du profil d'utilisateur
+                            $this->redirectTo('security', 'viewProfile');
                         }
                         //Sinon (si le $password ne correspond pas au $email)
                         elseif ((password_verify($password, $hash)) === false) {
                             //On envoie en session le message d'erreur/succès
                             Session::addFlash('error', 'Le mot de passe est incorrect');
-                            //On redirige vers la vue adaptée
-                            $this->redirectTo('security', 'login');
+                            //redirection
                         }
                     } else {
                         //On envoie en session le message d'erreur/succès
                         Session::addFlash('error', 'Votre compte a été banni. Veuillez contacter un modérateur.');
-                        //On redirige vers la vue adaptée
-                        $this->redirectTo('security', 'login');
+                        //redirection
                     }
                 }
             }
         }
-
-        //Sinon renvoie la view login.php
-        else {
-            $this->redirectTo('security', 'linkToLogin');
-        }
+        //Dans tous les cas 
+            $this->redirectTo('security', 'linkToLogin');  
     }
 
     // -- Pour voir les infos du profile d'utilisateur en session
