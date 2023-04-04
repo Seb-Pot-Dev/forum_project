@@ -34,10 +34,10 @@ if($user->getRole()!='admin' && $user->getRole()!= 'moderator'){?>
             <td><?php if($user->getBan()==0){echo "<p class='text-green'>valide</p>";}
             else{echo "<p class='text-red'>banni</p>";}?></td>
             <?php if($admin && $user->getBan()==0){ ?>
-            <td><a class="text-red" href="index.php?ctrl=security&action=banUserFromList&id=<?=$user->getId() ?>">Ban</a></td>
+            <td><a title="bannir" class="text-red" href="index.php?ctrl=security&action=banUserFromList&id=<?=$user->getId() ?>">Ban</a></td>
             <?php }
             if($admin && $user->getBan()==1){?>
-            <td><a class="text-green" href="index.php?ctrl=security&action=unbanUserFromList&id=<?=$user->getId() ?>">Deban</a></td>
+            <td><a title="débannir" class="text-green" href="index.php?ctrl=security&action=unbanUserFromList&id=<?=$user->getId() ?>">Deban</a></td>
 
             <?php } ?>
         </tr>

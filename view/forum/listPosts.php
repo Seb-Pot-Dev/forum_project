@@ -58,12 +58,16 @@ else{
           <div class="forum-post-card">
               <div class="post-header">
                 <div class="post-header-left">
-                <?php if($post->getUser()->getRole() == 'normal'){ ?>
-                  <p class="user-name">
-                <?php } elseif($post->getUser()->getRole()=='admin' || $_SESSION["user"]->getRole() == 'moderator'){ ?>
-                  <p class="user-name-red">
+                <?php 
+                //Couleur si le user est normal
+                if($post->getUser()->getRole() == 'normal'){ ?>
+                  <p  class="user-name">
+                <?php } 
+                //Couleur si le user est admin
+                elseif($post->getUser()->getRole()=='admin' || $_SESSION["user"]->getRole() == 'moderator'){ ?>
+                  <p  class="user-name-red">
                 <?php } ?>
-                  <a href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getNickname()?></a></p>
+                  <a  title="Voir le profil" href="index.php?ctrl=security&action=viewOtherUserProfile&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getNickname()?></a></p>
                   <p class="post-date"><?=$post->getPostDate()?></p>
                   </div>
                   <div class="post-header-right">
@@ -71,14 +75,14 @@ else{
                   //Si $admin est déclaré et que ce n'est pas le premier post
                   if($admin==true && $countPost>1){ ?>
                   <a href='index.php?ctrl=post&action=deletePost&id=<?=$post->getId()?>'>
-                  <p class='icon-admin'><i class='fa-solid fa-trash'></i></p>
+                  <p title="Supprimer le post" class='icon-admin-red'><i class='fa-solid fa-trash'></i></p>
                   </a>
                   <?php }
 
                   //Si $admin est déclaré
                   if($admin==true){ ?>
                     <a href='index.php?ctrl=post&action=linkToModifyPost&id=<?=$post->getId()?>'>
-                    <p class='icon-admin'><i class="fa-regular fa-pen-to-square"></i></p>
+                    <p title="Modifier le post" class='icon-admin'><i class="fa-regular fa-pen-to-square"></i></p>
                     </a>
                    <?php } ?>
 

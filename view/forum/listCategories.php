@@ -46,7 +46,7 @@ if($categories){?>
 foreach ($categories as $category) {
     ?>
     <tr>
-        <td><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
+        <td ><a href="index.php?ctrl=topic&action=listTopicsByCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></td>
             
     </tr>
     <?php
