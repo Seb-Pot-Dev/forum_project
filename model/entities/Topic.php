@@ -3,6 +3,7 @@
     namespace Model\Entities;
 
     use App\Entity;
+use DateTime;
 
     final class Topic extends Entity{
 
@@ -164,6 +165,14 @@
          */ 
         public function getFormattedTopicDate()
         {
+                // setlocale(LC_TIME, 'fr_FR.UTF-8');
+                // $date=$this->formattedTopicDate;
+                // $date_objet = DateTime::createFromFormat('d/m/Y H:i', $date); // créé un objet DateTime
+                
+                // $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+                // $formatter->setPattern('EEEE d MMMM y HH:mm'); // définit le format de date souhaité
+                // $date_formatee = $formatter->format($date_objet); // formate la date
+                // return $date_formatee;
                 return $this->formattedTopicDate;
         }
 

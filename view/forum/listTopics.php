@@ -84,9 +84,31 @@ if (isset($topics) ){ ?>
                 <?php }?>
                 </div>
                 </td>
-                <td><?=$topic->getFormattedTopicDate()?></td>
+                <td>
+<?php
+                // format fr de la creation du topic
+                setlocale(LC_TIME, 'fr_FR.UTF-8');
+                $date=$topic->getFormattedTopicDate();
+                $date_objet = DateTime::createFromFormat('d/m/Y H:i', $date); // créé un objet DateTime
+                
+                $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+                $formatter->setPattern('EEEE d MMMM y HH:mm'); // définit le format de date souhaité
+                $date_formatee = $formatter->format($date_objet); // formate la date
+                echo $date_formatee; 
+                ?>
+                </td>
                 <td><?=$topic->getCountPost()?></td>
-                <td><?=$topic->getLastPostDate()?></td>
+                <td><?php
+                // format fr du dernier msg
+                setlocale(LC_TIME, 'fr_FR.UTF-8');
+                $date=$topic->getLastPostDate();
+                $date_objet = DateTime::createFromFormat('d/m/Y H:i', $date); // créé un objet DateTime
+                
+                $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+                $formatter->setPattern('EEEE d MMMM y HH:mm'); // définit le format de date souhaité
+                $date_formatee = $formatter->format($date_objet); // formate la date
+                echo $date_formatee; 
+                ?></td>
                 <?php
                 //Si $admin == true
                 if($admin){ ?>
