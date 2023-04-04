@@ -24,7 +24,8 @@ else{
     </thead>
     <tbody>
         <?php
-foreach($users as $user){ ?>
+foreach($users as $user){ 
+if($user->getRole()!='admin' && $user->getRole()!= 'moderator'){?>
         <tr>
             <td><?=$user->getNickname()?></td>
             <td><?=$user->getEmail()?></td>
@@ -40,6 +41,6 @@ foreach($users as $user){ ?>
 
             <?php } ?>
         </tr>
-            <?php } ?>
+            <?php }} ?>
     </tbody>
 </table>
