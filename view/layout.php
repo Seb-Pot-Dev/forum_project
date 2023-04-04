@@ -29,12 +29,12 @@
                         <a href="index.php?ctrl=category&action=listCategories"><img src="https://cdn-icons-png.flaticon.com/512/1597/1597852.png" alt="logo de LA PLACE"></a>
                         <a class="button-light" href="index.php?ctrl=category&action=listCategories">Toutes les categories</a>
                         <?php
-                        // if(App\Session::isAdmin()){
+                        if((isset($_SESSION['user']) && $_SESSION['user']->getRole()=='admin')){
                             ?>
-                            <!-- <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> -->
+                            <a href="index.php?ctrl=security&action=linkToListUsers">Voir la liste des gens</a>
                             
                             <?php
-                        // }
+                        }
                         ?>
                     </div>
                     <h1>La Place</h1>

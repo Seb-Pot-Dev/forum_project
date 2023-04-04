@@ -161,6 +161,12 @@ nav h1 {
   border-radius: 5px;
   transition: 0.35s;
 }
+.text-green{
+  color: var(--success);
+}
+.text-red{
+  color: var(--error);
+}
 /*----------TABLE-------------*/
 .border-table {
   border: 1px solid lightgray;
@@ -441,5 +447,4 @@ footer{
 }
 
 .topic-container{
-  
 }

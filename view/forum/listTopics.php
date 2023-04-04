@@ -1,11 +1,4 @@
 <?php 
-/*
--- INITALISATION des VARIABLES qui contiennent les DONNEES des "$TOPICS" et de la "$CATEGORIE"
--- tel que définis par le CONTROLLER "TopicController.php" 
--- dans la méthode "listTopicsByCategory()"
--- qui utilise la méthodes du MANAGER "TopicManager.php"
--- "findTopicsByCategory()" pour faire les requetes en BDD
-*/
 if(isset($result["data"]['topics'])){
     $topics = $result["data"]['topics'];
 }

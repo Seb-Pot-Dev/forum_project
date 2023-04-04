@@ -36,7 +36,16 @@ class SecurityController extends AbstractController implements ControllerInterfa
             ]
         ];
     }
+    public function linkToListUsers(){
+        $userManager = new UserManager();
 
+        return [
+            "view" => VIEW_DIR . "forum/listUsers.php",
+            "data" => [
+                "users" => $userManager->findAll(["nickName", "DESC"])
+            ]
+        ];
+    }
     public function register()
     {
         // si $_POST["submit"] est défini
@@ -299,8 +308,6 @@ class SecurityController extends AbstractController implements ControllerInterfa
         // Si l'utilisateur en session est admin ou moderator
         if ($_SESSION['user']->getRole() == ('admin' || 'moderator')) {
             $userManager = new UserManager();
-            //récupération du Nickname du user
-            $userNickname = $userManager->findOneById($id)->getNickname();
             //utilisation de la fonction pour ban en fonction de l'ID
             $userManager->banUserById($id);
 
@@ -310,7 +317,35 @@ class SecurityController extends AbstractController implements ControllerInterfa
             $this->redirectTo('security', 'viewOtherUserProfile', $id);
         }
     }
+    public function banUserFromList($id)
+    {
+        // Si l'utilisateur en session est admin ou moderator
+        if ($_SESSION['user']->getRole() == ('admin' || 'moderator')) {
+            $userManager = new UserManager();
+            //utilisation de la fonction pour ban en fonction de l'ID
+            $userManager->banUserById($id);
+
+            //On envoie en session le message d'erreur/succès
+            Session::addFlash('error', 'Le compte selectionné a été banni.');
+            //redirection vers la list des users
+            $this->redirectTo('security', 'linkToListUsers');
+        }
+    }
     public function unbanUser($id)
+    {
+        // Si l'utilisateur en session est admin ou moderator
+        if ($_SESSION['user']->getRole() == ('admin' || 'moderator')) {
+            $userManager = new UserManager();
+
+            //utilisation de la fonction pour ban en fonction de l'ID
+            $userManager->unbanUserById($id);
+            //On envoie en session le message d'erreur/succès
+            Session::addFlash('success', 'Le compte selectionné a été débanni.');
+            //redirection vers la page de l'utilisteur débanni
+            $this->redirectTo('security', 'viewOtherUserProfile', $id);
+        }
+    }
+    public function unbanUserFromList($id)
     {
         // Si l'utilisateur en session est admin ou moderator
         if ($_SESSION['user']->getRole() == ('admin' || 'moderator')) {
@@ -322,7 +357,7 @@ class SecurityController extends AbstractController implements ControllerInterfa
             //On envoie en session le message d'erreur/succès
             Session::addFlash('success', 'Le compte selectionné a été débanni.');
             //redirection vers la page de l'utilisteur débanni
-            $this->redirectTo('security', 'viewOtherUserProfile', $id);
+            $this->redirectTo('security', 'linkToListUsers');
         }
     }
 }
