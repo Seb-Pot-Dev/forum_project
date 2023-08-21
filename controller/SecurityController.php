@@ -77,6 +77,9 @@ class SecurityController extends AbstractController implements ControllerInterfa
                 ) {
                     // ---- si les MDP et MDPconfirm correspondent ---
                     if ($password == $passwordConfirm) {
+                        /* Si le mot de passe correspondant aux exigence de sécurité => 
+                        (REGEX: Vérification de la présence d'au moins une lettre majuscule, un chiffre et un caractère spécial et 8 carac minimum ) */
+                        if (preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/', $password)){
                         //On hash le mot de passe
                         $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -87,6 +90,14 @@ class SecurityController extends AbstractController implements ControllerInterfa
                         Session::addFlash('success', 'Vous êtes bien INSCRIT !');
                         //On redirige vers la vue adaptée
                         $this->redirectTo('security', 'login');
+                        } 
+                        // ---- autrement, c'est que les MDP correspondent mais ne repondent pas au REGEX ---
+                        else {
+                            //On envoie en session le message d'erreur/succès
+                            Session::addFlash('error', 'Le mot de passe doit faire au moins 8 caractères, contenir une lettre majuscule, un chiffre et un caractère special');
+                            //On redirige vers la vue adaptée
+                            $this->redirectTo('security', 'index');
+                        }
                     }
                     // ---- autrement, c'est que les MDP et MDPconfirm NE correspondent PAS  ---
                     else {
